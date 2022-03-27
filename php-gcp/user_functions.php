@@ -22,17 +22,21 @@ function login($email)
 	$statement = $db->prepare($query);   // query() will compile and execute the sql
     $statement->bindValue(':email', $email);
     $statement->execute();
-    
-    if ($statement === false) {
+    $results = $statement->fetch();  
+    if ($results == null) {
         echo "Error checking for user: email does not exist";
-    } 
-	
+        
+    } else{
+        echo  implode(",", $results);
+    }
+ 
     // echo $email;
-    echo $query;
+    
 	
 
 	// release; free the connection to the server so other sql statements may be issued 
 	$statement->closeCursor();
+    return $results;
 }
 
 ?>
