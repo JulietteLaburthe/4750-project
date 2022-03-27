@@ -1,0 +1,11 @@
+# Use the PHP 7.3 runtime by replacing "php72" below with "php73"
+runtime: php73
+
+# Defaults to "serve index.php" and "serve public/index.php". Can be used to
+# serve a custom PHP front controller (e.g. "serve backend/index.php") or to
+# run a long-running PHP script as a worker process (e.g. "php worker.php").
+#
+# entrypoint: serve helloworld.php
+entrypoint: serve home_page.php
+
+# if main page is index.php, comment the above entrypoint setting line

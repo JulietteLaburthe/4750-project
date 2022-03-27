@@ -1,0 +1,1 @@
+<?php echo "Sample contact page -- to test routing" ?>
