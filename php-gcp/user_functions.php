@@ -2,24 +2,15 @@
 
 function login($email)
 {
-	// db handler
-	global $db;
+		global $db;
 
-	// write sql
-	// insert into friends (name, major, year) values('someone', 'cs', 4)"; 
-	// or
-	// insert into friends values('someone', 'cs', 4)";
 
-// bad practice (but convenient)
 	$query = 'select * from project_user_account where email = :email';
  
-// good practice: use a prepared statement 
-// 1. prepare
-// 2. bindValue & execute	
 	
 
 	// execute the sql
-	$statement = $db->prepare($query);   // query() will compile and execute the sql
+	$statement = $db->prepare($query);  
     $statement->bindValue(':email', $email);
     $statement->execute();
     $results = $statement->fetch();  
@@ -30,7 +21,7 @@ function login($email)
         echo  implode(",", $results);
     }
  
-    // echo $email;
+    
     
 	
 
@@ -39,4 +30,38 @@ function login($email)
     return $results;
 }
 
+function signup($email,$username,$password){
+
+	global $db;
+
+
+    // echo $email;
+    // echo $username;
+    // echo $password;
+	$query1 = 'select * from project_user_account where email = :email';
+    
+    $statement1 = $db->prepare($query1);   // query() will compile and execute the sql
+    $statement1->bindValue(':email', $email);
+    $statement1->execute();
+    $results1 = $statement1->fetch();  
+     // this ensures that entry is only being added if accounts doesn't already exist
+    if ($results1 == null) {
+       $hashed_password = password_hash($password,PASSWORD_DEFAULT);
+       $query = "insert into project_user_account values(:email, :username, :password)";
+    
+       $statement = $db->prepare($query);   // query() will compile and execute the sql
+       $statement->bindValue(':email', $email);
+       $statement->bindValue(':username', $username);
+       $statement->bindValue(':password', $hashed_password);
+       $statement->execute();
+       $results = $statement->fetch();   
+       $statement->closeCursor();
+       return $results;
+    } else{
+        echo "Error : account already exists with this email";
+        // echo  implode(",", $results1);
+    }
+    
+    $statement1->closeCursor();
+}
 ?>

@@ -22,7 +22,8 @@
 <body>
 <div class="container">
   <h1>Welcome to WatchShelf!</h1>  
-<a href="login.php">Login</a>
+<a href="login.php">Login</a> </br>
+<a href="signup.php">Sign Up</a>
 </form> 
 
 
