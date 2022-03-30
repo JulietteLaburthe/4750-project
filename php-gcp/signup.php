@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 ?>
 <h1>Sign Up</h1>
 <h3>Please enter the information below to create your account: </h3>
+<!-- for now after signing up you need to login -->
 <form name="mainForm" action="signup.php" method="post">   
   <div class="row mb-3 mx-3">
     Email:

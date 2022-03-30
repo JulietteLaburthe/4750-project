@@ -56,6 +56,7 @@ function signup($email,$username,$password){
        $statement->execute();
        $results = $statement->fetch();   
        $statement->closeCursor();
+       echo "Successfully created account.";
        return $results;
     } else{
         echo "Error : account already exists with this email";
@@ -64,4 +65,28 @@ function signup($email,$username,$password){
     
     $statement1->closeCursor();
 }
+
+//will limit it 
+function getAllMedia()
+{
+	global $db;
+	$query = "select * from media limit 30";
+
+// bad	
+	// $statement = $db->query($query);     // 16-Mar, stopped here, still need to fetch and return the result 
+	
+// good: use a prepared stement 
+// 1. prepare
+// 2. bindValue & execute
+	$statement = $db->prepare($query);
+	$statement->execute();
+
+	// fetchAll() returns an array of all rows in the result set
+	$results = $statement->fetchAll();   
+
+	$statement->closeCursor();
+
+	return $results;
+}
+
 ?>
