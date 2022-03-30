@@ -1,6 +1,5 @@
 <?php
-
-function login($email)
+function login($email, $password)
 {
 		global $db;
 
@@ -14,21 +13,38 @@ function login($email)
     $statement->bindValue(':email', $email);
     $statement->execute();
     $results = $statement->fetch();  
+    echo $results[2] ."\n";
+   
     if ($results == null) {
         echo "Error checking for user: email does not exist";
-        
-    } else{
-        echo  implode(",", $results);
-    }
- 
+       
+    } else if (!empty($results)){
+        // $p = password_hash($password,PASSWORD_DEFAULT);
+        // echo $p;
+        if (password_verify($password, $results[2])) {
+            setcookie("email", $results[0], time() + 3600);
+            setcookie("username",$results[1], time() + 3600);
+            setcookie("password", $results[2], time() + 3600);
+            header("Location: https://localhost/php-gcp/add_media.php");
+            
+    }else{ echo "Error logging in: incorrect password";}
+
+
     
-    
+
+}else{
+   
+}
+    $statement->closeCursor();
+    return $results;
+
+}
 	
 
 	// release; free the connection to the server so other sql statements may be issued 
-	$statement->closeCursor();
-    return $results;
-}
+	
+
+   
 
 function signup($email,$username,$password){
 
@@ -56,7 +72,6 @@ function signup($email,$username,$password){
        $statement->execute();
        $results = $statement->fetch();   
        $statement->closeCursor();
-       echo "Successfully created account.";
        return $results;
     } else{
         echo "Error : account already exists with this email";
@@ -64,29 +79,31 @@ function signup($email,$username,$password){
     }
     
     $statement1->closeCursor();
+
+
+
 }
-
-//will limit it 
-function getAllMedia()
-{
-	global $db;
-	$query = "select * from media limit 30";
-
-// bad	
-	// $statement = $db->query($query);     // 16-Mar, stopped here, still need to fetch and return the result 
-	
-// good: use a prepared stement 
-// 1. prepare
-// 2. bindValue & execute
-	$statement = $db->prepare($query);
-	$statement->execute();
-
-	// fetchAll() returns an array of all rows in the result set
-	$results = $statement->fetchAll();   
-
-	$statement->closeCursor();
-
-	return $results;
-}
-
+    //will limit it 
+    function getAllMedia()
+    {
+        global $db;
+        $query = "select * from media limit 30";
+    
+    // bad	
+        // $statement = $db->query($query);     // 16-Mar, stopped here, still need to fetch and return the result 
+        
+    // good: use a prepared stement 
+    // 1. prepare
+    // 2. bindValue & execute
+        $statement = $db->prepare($query);
+        $statement->execute();
+    
+        // fetchAll() returns an array of all rows in the result set
+        $results = $statement->fetchAll();   
+    
+        $statement->closeCursor();
+    
+        return $results;
+    }
+    
 ?>
