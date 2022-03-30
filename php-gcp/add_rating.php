@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('connect-db.php');
 require('user_functions.php');
 //dfvsfv
@@ -7,13 +8,11 @@ $friend_to_update = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-    if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add to Watchlist")
-    {  
-      // If the button is clicked and its value is "Add" then call addFriend() function
-
-      //ddFriend($_POST['name'], $_POST['major'], $_POST['year']);
-      $list_of_media = getAllMedia();
-    }
+  if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add"){ 
+        $_SESSION['current_title'] = $_POST['title'];
+        $_SESSION['current_title_id'] = $_POST['title_id'];
+  }
+    
 }
 ?>
 
@@ -37,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <meta name="author" content="your name">
   <meta name="description" content="include some description about your page">  
     
-  <title>DB interfacing example</title>
+  <title>Add to Watchlist</title>
   
   <!-- 3. link bootstrap -->
   <!-- if you choose to use CDN for CSS bootstrap -->  
@@ -64,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 <body>
 <div class="container">
-  <h1><?php $_POST["title"]?></h1>  
+  <h1><?php echo $_SESSION["current_title"]?></h1>  
 
   <form name="mainForm" action="simpleform.php" method="post">   
   <div class="row mb-3 mx-3">

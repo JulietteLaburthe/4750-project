@@ -1,16 +1,18 @@
 
 <?php
+session_start();
 require('connect-db.php');
 require('user_functions.php');
 $list_of_media = getAllMedia();
 
-// if ($_SERVER['REQUEST_METHOD'] == 'POST')
-// {
-//   if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add"){
-//     signup($_POST['email'],$_POST['username'],$_POST['password']);
-//   }
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+  if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add"){ 
+        $_SESSION['current_title'] = $_POST['title'];
+        $_SESSION['current_title_id'] = $_POST['title_id'];
+  }
     
-// }
+}
 ?>
 
 <!-- 1. create HTML5 doctype -->
@@ -76,7 +78,7 @@ $list_of_media = getAllMedia();
       <form action="add_rating.php" method="post">
         <input type="submit" value="Add" name="btnAction" class="btn btn-primary" />
         <input type="hidden" name="title" value="<?php echo $media['common_title'] ?>" />
-        <input type="hidden" name="title_id" value="<?php echo $media['unique_title_identifier'] ?>" />      
+        <input type="hidden" name="title_id" value="<?php echo $media['unique_title_identifier'] ?>" />     
       </form>
     </td>
   </tr>

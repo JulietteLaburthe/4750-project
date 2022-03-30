@@ -70,7 +70,7 @@ function signup($email,$username,$password){
 function getAllMedia()
 {
 	global $db;
-	$query = "select * from media limit 30";
+	$query = "select * from media limit 20";
 
 // bad	
 	// $statement = $db->query($query);     // 16-Mar, stopped here, still need to fetch and return the result 
@@ -87,6 +87,40 @@ function getAllMedia()
 	$statement->closeCursor();
 
 	return $results;
+}
+
+function addMedia($email, $unique_title_identifier, $user_comment, $rating)
+{
+	// db handler
+	global $db;
+
+	// write sql
+	// insert into friends (name, major, year) values('someone', 'cs', 4)"; 
+	// or
+	// insert into friends values('someone', 'cs', 4)";
+
+// bad practice (but convenient)
+	// $query = "insert into friends values('" . $name . "', '" . $major . "'," . $year . ")";
+
+// good practice: use a prepared statement 
+// 1. prepare
+// 2. bindValue & execute	
+	$query = "insert into has_watched values(:email, :unique_title_identifier, :user_comment, :rating)";
+
+	// execute the sql
+	// $statement = $db->query($query);   // query() will compile and execute the sql
+	$statement = $db->prepare($query);
+
+	$statement->bindValue(':name', $email);
+	$statement->bindValue(':major', $unique_title_identifier);
+    $statement->bindValue(':year', $user_comment);
+    $statement->bindValue(':year', $rating);
+
+	//echo $query;
+	$statement->execute();
+
+	// release; free the connection to the server so other sql statements may be issued 
+	$statement->closeCursor();
 }
 
 ?>
