@@ -1,4 +1,3 @@
-
 <?php
 require('connect-db.php');
 require('user_functions.php');
