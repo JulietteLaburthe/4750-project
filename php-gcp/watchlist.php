@@ -1,20 +1,38 @@
-
-
 <?php
 //session_start();
 require('connect-db.php');
 require('user_functions.php');
 $list_of_media = getAllMedia();
+$list_of_watched = getAllWatched($_SESSION["email"]);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-//   if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add"){ 
-//         $_SESSION['current_title'] = $_POST['title'];
-//         $_SESSION['current_title_id'] = $_POST['title_id'];
-//   }
+    if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add to Watchlist"){ 
+        $_SESSION['current_rating'] = $_POST['rating'];
+        $_SESSION['current_review'] = $_POST['review'];
+        addMedia($_SESSION["email"], $_SESSION['current_title_id'], $_SESSION['current_rating'], $_SESSION['current_review']);
+        $list_of_watched = getAllWatched($_SESSION["email"]);
+    }
+    if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Confirm update")
+    {
+      $_SESSION['current_rating'] = $_POST['rating'];
+      $_SESSION['current_review'] = $_POST['review'];
+      //console.log("worked");
+      updateMedia($_SESSION["email"], $_SESSION['watch_to_update_id'], $_SESSION['current_rating'], $_SESSION['current_review']);
+      $list_of_watched = getAllWatched($_SESSION["email"]);
+    }
 
+    if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete")
+    {
+
+      $_SESSION['watch_to_delete'] = $_POST['watch_to_delete'];
+      deleteMedia($_SESSION['email'],$_SESSION['watch_to_delete']);
+      $list_of_watched = getAllWatched($_SESSION["email"]);
+    }
     
 }
+
+
 ?>
 
 <!-- 1. create HTML5 doctype -->
@@ -69,33 +87,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="add_media.php">Add Media</a>
-      <a class="nav-item nav-link" href="watchlist.php">Watchlist</a>
+      <a class="nav-item nav-link" href="add_media.php">Add Media</a>
+      <a class="nav-item nav-link active" href="watchlist.php">Watchlist</a>
     </div>
   </div>
 </nav>
 <div class="container">
-
-<h1>Add Media</h1>
-<h3>List of Movies </h3>
+<h1>My Watchlist</h1>
+<h3>List of Movies</h3>
 
 <table class="w3-table w3-bordered w3-card-4" style="width:90%">
   <thead>
   <tr style="background-color:#B0B0B0">
-    <th width="90%">Name</th>
-    <th width="10%">Add</th> 
+    <th width="35%">Title</th>
+    <th width="10%">Rating</th>
+    <th width="35%">Review</th> 
+    <th width="10%">Update</th>
+    <th width="10%">Delete</th>
   </tr>
   </thead>
-  <?php foreach ($list_of_media as $media): ?>
+  <?php foreach ($list_of_watched as $watched): ?>
   <tr>
-    <td><?php echo $media['common_title']; ?></td>
+    <?php 
+        $media_watched = getMedia_byID($watched['unique_title_identifier']);
+    ?>
+    <td><?php echo $media_watched['common_title']; ?></td>
+    <td><?php echo $watched['rating']; ?></td>
+    <td><?php echo $watched['user_comment']; ?></td>
     <td>
-      <form action="add_rating.php" method="post">
-        <input type="submit" value="Add" name="btnAction" class="btn btn-primary" />
-        <input type="hidden" name="title" value="<?php echo $media['common_title'] ?>" />
-        <input type="hidden" name="title_id" value="<?php echo $media['unique_title_identifier'] ?>" />     
+      <form action="update_rating.php" method="post">
+        <input type="submit" value="Update" name="btnAction" class="btn btn-primary" />
+        <input type="hidden" name="watch_to_update" value="<?php echo $watched['unique_title_identifier'] ?>" />      
       </form>
     </td>
+    <td>
+    <form action="watchlist.php" method="post">
+        <input type="submit" value="Delete" name="btnAction" class="btn btn-danger" />
+        <input type="hidden" name="watch_to_delete" value="<?php echo $watched['unique_title_identifier'] ?>" />      
+      </form>
+    </td> 
   </tr>
   <?php endforeach; ?>
 
