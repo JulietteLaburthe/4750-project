@@ -1,12 +1,12 @@
 <?php
 session_start();
-
+ob_start();
 function login($email, $password)
 {
 		global $db;
 
 
-	$query = 'select * from project_user_account where email = :email';
+	$query = 'select * from user_account where email = :email';
     //returns the row of the user
 	
 
@@ -15,7 +15,7 @@ function login($email, $password)
     $statement->bindValue(':email', $email);
     $statement->execute();
     $results = $statement->fetch();  
-    echo $results[2] ."\n"; //returns the password
+    // echo $results[2] ."\n"; //returns the password
    
     if ($results == null) {
         echo "Error checking for user: email does not exist";
@@ -29,7 +29,12 @@ function login($email, $password)
             //setcookie("password", $results[2], time() + 3600);
             $_SESSION['email'] = $email;
             $_SESSION['username'] = $query[1];
-            header("Location: https://localhost/4750-project/php-gcp/add_media.php");
+			header("Location: https://localhost/php-gcp/add_media.php");
+	
+			
+
+			
+			ob_end_flush();
             
     }else{ echo "Error logging in: incorrect password";}
 
@@ -40,7 +45,7 @@ function login($email, $password)
    
 }
     $statement->closeCursor();
-    return $results;
+    
 
 }
 
@@ -52,7 +57,7 @@ function signup($email,$username,$password){
     // echo $email;
     // echo $username;
     // echo $password;
-	$query1 = 'select * from project_user_account where email = :email';
+	$query1 = 'select * from user_account where email = :email';
     
     $statement1 = $db->prepare($query1);   // query() will compile and execute the sql
     $statement1->bindValue(':email', $email);
@@ -61,7 +66,7 @@ function signup($email,$username,$password){
      // this ensures that entry is only being added if accounts doesn't already exist
     if ($results1 == null) {
        $hashed_password = password_hash($password,PASSWORD_DEFAULT);
-       $query = "insert into project_user_account values(:email, :username, :password)";
+       $query = "insert into user_account values(:email, :username, :password)";
     
        $statement = $db->prepare($query);   // query() will compile and execute the sql
        $statement->bindValue(':email', $email);
@@ -72,10 +77,10 @@ function signup($email,$username,$password){
        $statement->closeCursor();
        $_SESSION['email'] = $email;
        $_SESSION['username'] = $username;
-       header("Location: https://localhost/4750-project/php-gcp/add_media.php");
-       echo "Successfully created account.";
+	   header("Location: https://localhost/php-gcp/add_media.php");
+	
 
-       return $results;
+       return true;
     } else{
         echo "Error : account already exists with this email";
         // echo  implode(",", $results1);

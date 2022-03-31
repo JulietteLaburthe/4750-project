@@ -15,8 +15,11 @@
   <meta name="author" content="your name">
   <meta name="description" content="include some description about your page">  
     
- <!-- If you choose to use a favicon, specify the destination of the resource in href -->
- <link rel="icon" type="image/png" href="https://clipartix.com/wp-content/uploads/2017/01/Movie-camera-clip-art-clipart-free-download-11.png" />
+ <!-- if you choose to use CDN for CSS bootstrap -->  
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="icon" type="image/png" href="https://clipartix.com/wp-content/uploads/2017/01/Movie-camera-clip-art-clipart-free-download-11.png" />
+  <!-- you may also use W3's formats -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <title>WatchShelf</title>
 <body>
