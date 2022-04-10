@@ -5,18 +5,35 @@ require('connect-db.php');
 require('user_functions.php');
 //dfvsfv
 $list_of_media = getAllMedia();
+$list_of_watched = getAllWatched($_SESSION["email"]);
+
+// if ($_SERVER['REQUEST_METHOD'] == 'POST')
+// {
+//   if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add"){ 
+//         $_SESSION['current_title'] = $_POST['title'];
+//         $_SESSION['current_title_id'] = $_POST['title_id'];
+//   }
+    
+// }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-  if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add"){ 
-        $_SESSION['current_title'] = $_POST['title'];
-        $_SESSION['current_title_id'] = $_POST['title_id'];
-  }
-    
+    if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Update")
+    {  
+      // If the button is clicked and its value is "Update" then retrieve info about that friend.
+      // We'll later fill in the friend's info in the form so that a user can update the info.
+      $_SESSION['watch_to_update_id'] = $_POST['watch_to_update'];
+      $watch_to_update = getMedia_byID($_POST['watch_to_update']);
+      $list_of_watched = getAllWatched($_SESSION["email"]);
+      // To fill in the form, assign the pieces of info to the value attributes of form input textboxes.
+      // Then, we'll wait until a user makes some changes to the friend's info 
+      // and click the "Confirm update" button to actually make it reflect the database. 
+      // (also note: "name" is a primary key -- refer to the friends table we created, thus can't be updated)
+    }
+
 }
+    
 ?>
-
-
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
 <html>
@@ -36,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <meta name="author" content="your name">
   <meta name="description" content="include some description about your page">  
     
-  <title>Add to Watchlist</title>
+  <title>Update Watchlist</title>
   
   <!-- 3. link bootstrap -->
   <!-- if you choose to use CDN for CSS bootstrap -->  
@@ -74,7 +91,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </div>
 </nav>
 <div class="container">
-  <h1><?php echo $_SESSION["current_title"]?></h1>  
+
+      <?php 
+            $media_to_update = getMedia_byID($_SESSION['watch_to_update_id']);
+      ?>
+  <h1><?php echo $media_to_update["common_title"]?></h1>  
 
   <form name="mainForm" action="watchlist.php" method="post">   
   <div class="row mb-3 mx-3">
@@ -124,14 +145,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         <label for="10" class="form-check-label" >10</label>
         <input type="radio"class="form-check-input"  value="10" id="10" name="rating" required/>
   </div>
+  <?php 
+            $watch_to_update = getWatched_byEmailID($_SESSION["email"],$_SESSION['watch_to_update_id']);
+      ?>
   <div class="row mb-3 mx-3">
     Review:
-    <input type="text" class="form-control" name="review"/> 
-</div>
+    <input type="text" class="form-control" name="review"  value="<?php if ($watch_to_update!=null)  echo $watch_to_update['user_comment'] ?>"/> 
+  </div>
+
 <div class="row mb-3 mx-3">
-  <input type="submit" value="Add to Watchlist" name="btnAction" class="btn btn-dark" 
-        title="insert a watch" />
-        </div>
+  <input type="submit" value="Confirm update" name="btnAction" class="btn btn-dark" 
+        title="confirm update a watch" />
+ </div>
 </form> 
 </div>    
 </body>

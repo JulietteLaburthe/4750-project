@@ -1,23 +1,40 @@
-
-
 <?php
 //session_start();
 require('connect-db.php');
 require('user_functions.php');
-$list_of_media = [];
-// $t = getMediaInfo_byID($list_of_media[0][0]);
-// getInfo_byType($list_of_media[0][0],$t);
+$list_of_media = getAllMedia();
+$list_of_watched = getAllWatched($_SESSION["email"]);
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-  if (!empty($_POST['btnAction']) && !empty($_POST['selectButton']) && $_POST['btnAction'] == "Search"){ 
-    $_SESSION['by'] = $_POST['selectButton'];
-    $_SESSION['search'] = $_POST['search_res'];
-    $list_of_media = getMedia_byQuery($_SESSION['by'],$_SESSION['search']);
-   
-    // $list_of_watched = getAllWatched($_SESSION["email"]);
-}
+    if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add to Watchlist"){ 
+        $_SESSION['current_rating'] = $_POST['rating'];
+        $_SESSION['current_review'] = $_POST['review'];
+        addMedia($_SESSION["email"], $_SESSION['current_title_id'], $_SESSION['current_rating'], $_SESSION['current_review']);
+       
+        $list_of_watched = getAllWatched($_SESSION["email"]);
+    }
+    if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Confirm update")
+    {
+      $_SESSION['current_rating'] = $_POST['rating'];
+      $_SESSION['current_review'] = $_POST['review'];
+      //console.log("worked");
+      updateMedia($_SESSION["email"], $_SESSION['watch_to_update_id'], $_SESSION['current_rating'], $_SESSION['current_review']);
+      $list_of_watched = getAllWatched($_SESSION["email"]);
+    }
+
+    if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete")
+    {
+
+      $_SESSION['watch_to_delete'] = $_POST['watch_to_delete'];
+      deleteMedia($_SESSION['email'],$_SESSION['watch_to_delete']);
+      $list_of_watched = getAllWatched($_SESSION["email"]);
+    }
     
 }
+
+
 ?>
 
 <!-- 1. create HTML5 doctype -->
@@ -55,7 +72,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   
   <!-- If you choose to use a favicon, specify the destination of the resource in href -->
   <link rel="icon" type="image/png" href="https://clipartix.com/wp-content/uploads/2017/01/Movie-camera-clip-art-clipart-free-download-11.png" />
-  
   <!-- if you choose to download bootstrap and host it locally -->
   <!-- <link rel="stylesheet" href="path-to-your-file/bootstrap.min.css" /> --> 
   
@@ -72,49 +88,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="add_media.php">Add Media</a>
-      <a class="nav-item nav-link" href="watchlist.php">Watchlist</a>
+      <a class="nav-item nav-link" href="add_media.php">Add Media</a>
+      <a class="nav-item nav-link active" href="watchlist.php">Watchlist</a>
     </div>
   </div>
 </nav>
 <div class="container">
+<h1>My Watchlist</h1>
+<h3>List of Movies</h3>
 
-<h1>Add Media</h1>
-<h3>Search By: </h3>
-<form action="add_media.php" method="post">
-Title
-<input type="radio" name="selectButton" value="Title">
-Actor
-<input type="radio" name="selectButton" value="Actor">
-Director
-<input type="radio" name="selectButton" value="Director">
-<br>
-<input type="textbox" class="form-control" name="search_res"  
-            ?>    <br>
-<input type="submit" value="Search" name="btnAction" class="btn btn-dark" /> 
-</form>
-<br>
 <table class="w3-table w3-bordered w3-card-4" style="width:90%">
   <thead>
   <tr style="background-color:#B0B0B0">
-    <th width="90%">Name</th>
-    <th width="10%">Add</th> 
+    <th width="35%">Title</th>
+    <th width="10%">Rating</th>
+    <th width="35%">Review</th> 
+    <th width="10%">Update</th>
+    <th width="10%">Delete</th>
   </tr>
   </thead>
-  
-  <?php foreach ($list_of_media as $media): ?>
+  <?php foreach ($list_of_watched as $watched): ?>
   <tr>
-    <td><?php echo "<h5>".$media['common_title']."</h5>"; 
-     $type = getMediaInfo_byID($media['unique_title_identifier']);
-     getInfo_byType($media['unique_title_identifier'],$type);?></td>
-   
+    <?php 
+        $media_watched = getMedia_byID($watched['unique_title_identifier']);
+        
+    ?>
+    <td><?php echo $media_watched['common_title']; ?></td>
+    <td><?php echo $watched['rating']; ?></td>
+    <td><?php echo $watched['user_comment']; ?></td>
     <td>
-      <form action="add_rating.php" method="post">
-        <input type="submit" value="Add" name="btnAction" class="btn btn-primary" />
-        <input type="hidden" name="title" value="<?php echo $media['common_title'] ?>" />
-        <input type="hidden" name="title_id" value="<?php echo $media['unique_title_identifier'] ?>" />     
+      <form action="update_rating.php" method="post">
+        <input type="submit" value="Update" name="btnAction" class="btn btn-primary" />
+        <input type="hidden" name="watch_to_update" value="<?php echo $watched['unique_title_identifier'] ?>" />      
       </form>
     </td>
+    <td>
+    <form action="watchlist.php" method="post">
+        <input type="submit" value="Delete" name="btnAction" class="btn btn-danger" />
+        <input type="hidden" name="watch_to_delete" value="<?php echo $watched['unique_title_identifier'] ?>" />      
+      </form>
+    </td> 
   </tr>
   <?php endforeach; ?>
 
