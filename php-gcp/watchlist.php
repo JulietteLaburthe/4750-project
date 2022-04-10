@@ -31,6 +31,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       deleteMedia($_SESSION['email'],$_SESSION['watch_to_delete']);
       $list_of_watched = getAllWatched($_SESSION["email"]);
     }
+
+    //Sort by Rating
+    if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Sort by Rating")
+    {
+      $list_of_watched = getAllWatchedbyRating($_SESSION["email"]);
+    }
+
+    //Sort by Rating
+    if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Sort by Title")
+    {
+      $list_of_watched = getAllWatchedbyTitle($_SESSION["email"]);
+    }
     
 }
 
@@ -96,6 +108,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <div class="container">
 <h1>My Watchlist</h1>
 <h3>List of Movies</h3>
+<div>
+  <form method="post" action="watchlist.php" style ="display: inline;">
+      <!-- More code here -->
+      <input type="submit" value="Sort by Title" name="btnAction" class="btn btn-success" />
+  </form>
+  <form method="post" action="watchlist.php" id="form2" style ="display: inline;">
+      <!-- More code here -->
+      <input type="submit" value="Sort by Rating" name="btnAction" class="btn btn-primary" />
+  </form>
+</div>
 
 <table class="w3-table w3-bordered w3-card-4" style="width:90%">
   <thead>
@@ -111,7 +133,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <tr>
     <?php 
         $media_watched = getMedia_byID($watched['unique_title_identifier']);
-        
     ?>
     <td><?php echo $media_watched['common_title']; ?></td>
     <td><?php echo $watched['rating']; ?></td>
@@ -119,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <td>
       <form action="update_rating.php" method="post">
         <input type="submit" value="Update" name="btnAction" class="btn btn-primary" />
-        <input type="hidden" name="watch_to_update" value="<?php echo $watched['unique_title_identifier'] ?>" />      
+        <input type="hidden" name="watch_to_update" value="<?php echo $watched['unique_title_identifier']?>" />      
       </form>
     </td>
     <td>

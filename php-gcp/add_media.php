@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <h3>Search By: </h3>
 <form action="add_media.php" method="post">
 Title
-<input type="radio" name="selectButton" value="Title">
+<input type="radio" name="selectButton" value="Title" required>
 Actor
 <input type="radio" name="selectButton" value="Actor">
 Director

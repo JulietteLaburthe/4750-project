@@ -29,7 +29,7 @@ function login($email, $password)
             //setcookie("password", $results[2], time() + 3600);
             $_SESSION['email'] = $email;
             $_SESSION['username'] = $query[1];
-			header("Location: https://localhost/php-gcp/add_media.php");
+			header("Location: https://localhost/4750-project/php-gcp/add_media.php");
 	
 			
 
@@ -77,7 +77,7 @@ function signup($email,$username,$password){
        $statement->closeCursor();
        $_SESSION['email'] = $email;
        $_SESSION['username'] = $username;
-	   header("Location: https://localhost/php-gcp/add_media.php");
+	   header("Location: https://localhost/4750-project/php-gcp/add_media.php");
 	
 
        return true;
@@ -220,6 +220,8 @@ function getMediaInfo_byID($title_id){
 	
 
 }
+
+
 function getInfo_byType($id,$type){
 	global $db;
 	$genres_query = 'select genres from media_genres where unique_title_identifier = :title_id';
@@ -305,10 +307,58 @@ function getInfo_byType($id,$type){
 	}
 	echo "<pre>" .implode("\n",["<b> Genres: </b>". $genres_result,"<b> Cast: </b>".$cast_result,"<b> Director: </b>".$director_result,"<b> Writer: </b>".$writer_result,$media_spec_result])."</pre>";
 } 
+
+
 function getAllWatched($email)
 {
 	global $db;
 	$query = "select * from has_watched where email = :email";
+
+// bad	
+	// $statement = $db->query($query);     // 16-Mar, stopped here, still need to fetch and return the result 
+	
+// good: use a prepared stement 
+// 1. prepare
+// 2. bindValue & execute
+    $statement = $db->prepare($query);
+    $statement->bindValue(':email', $email);
+	$statement->execute();
+
+	// fetchAll() returns an array of all rows in the result set
+	$results = $statement->fetchAll();   
+
+	$statement->closeCursor();
+
+	return $results;
+}
+
+function getAllWatchedbyRating($email)
+{
+	global $db;
+	$query = "select * from has_watched where email = :email order by rating desc";
+
+// bad	
+	// $statement = $db->query($query);     // 16-Mar, stopped here, still need to fetch and return the result 
+	
+// good: use a prepared stement 
+// 1. prepare
+// 2. bindValue & execute
+    $statement = $db->prepare($query);
+    $statement->bindValue(':email', $email);
+	$statement->execute();
+
+	// fetchAll() returns an array of all rows in the result set
+	$results = $statement->fetchAll();   
+
+	$statement->closeCursor();
+
+	return $results;
+}
+
+function getAllWatchedbyTitle($email)
+{
+	global $db;
+	$query = "select * from has_watched natural join media where email = :email order by common_title asc";
 
 // bad	
 	// $statement = $db->query($query);     // 16-Mar, stopped here, still need to fetch and return the result 
