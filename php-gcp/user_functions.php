@@ -126,6 +126,8 @@ function getMedia_byQuery($by,$search_res)
 			 
 		 }else{
 			 $title_r = "The search yielded no results, please try again.";
+			 $result = array();
+			 return $result;
 		 }
 		 $title_s->closeCursor();
 		 return $title_r;
@@ -145,6 +147,8 @@ function getMedia_byQuery($by,$search_res)
 			 
 		 }else{
 			 $actor_r = "The search yielded no results, please try again.";
+			 $result = array();
+			 return $result;
 		 }
 		 $actor_s->closeCursor();
 		 return $actor_r;
@@ -164,6 +168,8 @@ function getMedia_byQuery($by,$search_res)
 			  
 		  }else{
 			  $director_r = "The search yielded no results, please try again.";
+			  $result = array();
+			  return $result;
 		  }
 		  $director_s->closeCursor();
 		  return $director_r;

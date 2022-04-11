@@ -101,7 +101,12 @@ Director
     <th width="10%">Add</th> 
   </tr>
   </thead>
-  
+  <?php 
+       if(count($list_of_media)==0){
+         echo "<p>No Results Found.</p>";
+       }
+  ?>
+
   <?php foreach ($list_of_media as $media): ?>
   <tr>
     <td><?php echo "<h5>".$media['common_title']."</h5>"; 
