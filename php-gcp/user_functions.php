@@ -29,7 +29,7 @@ function login($email, $password)
             //setcookie("password", $results[2], time() + 3600);
             $_SESSION['email'] = $email;
             $_SESSION['username'] = $query[1];
-			header("Location: https://localhost/4750-project/php-gcp/add_media.php");
+			header("Location: https://cs4750-project-db.uk.r.appspot.com/add_rating.php");
 	
 			
 
@@ -77,7 +77,7 @@ function signup($email,$username,$password){
        $statement->closeCursor();
        $_SESSION['email'] = $email;
        $_SESSION['username'] = $username;
-	   header("Location: https://localhost/4750-project/php-gcp/add_media.php");
+	   header("Location: add_media.php");
 	
 
        return true;
