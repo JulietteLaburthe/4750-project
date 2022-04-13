@@ -2,19 +2,30 @@
 
 <?php
 //session_start();
+error_reporting(E_ALL ^ E_WARNING); 
 require('connect-db.php');
 require('user_functions.php');
-$list_of_media = getAllMedia();
+if ($_SERVER['REQUEST_METHOD'] == 'GET'){
+$email =$_GET['email'];
+}
 
+$list_of_media = [];
+// $t = getMediaInfo_byID($list_of_media[0][0]);
+// getInfo_byType($list_of_media[0][0],$t);
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-//   if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add"){ 
-//         $_SESSION['current_title'] = $_POST['title'];
-//         $_SESSION['current_title_id'] = $_POST['title_id'];
-//   }
-
+  if (!empty($_POST['btnAction']) && !empty($_POST['selectButton']) && $_POST['btnAction'] == "Search"){ 
+    $by = $_POST['selectButton'];
+    $search = $_POST['search_res'];
+    $list_of_media = getMedia_byQuery($by,$search);
     
+    // $list_of_watched = getAllWatched($_SESSION["email"]);
 }
+$email = $_POST['email'];
+// echo "email: ". $email;
+}
+$link_address= "https://localhost/php-gcp/watchlist.php?email=". $email."";
+$link_address2= "https://localhost/php-gcp/add_media.php?email=". $email."";
 ?>
 
 <!-- 1. create HTML5 doctype -->
@@ -51,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   -->
   
   <!-- If you choose to use a favicon, specify the destination of the resource in href -->
-  <link rel="icon" type="image/png" href="http://www.cs.virginia.edu/~up3f/cs4750/images/db-icon.png" />
+  <link rel="icon" type="image/png" href="https://clipartix.com/wp-content/uploads/2017/01/Movie-camera-clip-art-clipart-free-download-11.png" />
   
   <!-- if you choose to download bootstrap and host it locally -->
   <!-- <link rel="stylesheet" href="path-to-your-file/bootstrap.min.css" /> --> 
@@ -69,16 +80,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="add_media.php">Add Media</a>
-      <a class="nav-item nav-link" href="watchlist.php">Watchlist</a>
+      <a class="nav-item nav-link active" href="<?php echo $link_address2;?>">Add Media</a>
+      <a class="nav-item nav-link"  href="<?php echo $link_address;?>">Watchlist<a/>
     </div>
   </div>
 </nav>
 <div class="container">
 
 <h1>Add Media</h1>
-<h3>List of Movies </h3>
-
+<h3>Search By: </h3>
+<form action="add_media.php" method="post">
+Title
+<input type="hidden" name="email" value="<?php echo $email ?>">
+<input type="radio" name="selectButton" value="Title" required>
+Actor
+<input type="radio" name="selectButton" value="Actor">
+Director
+<input type="radio" name="selectButton" value="Director">
+<br>
+<input type="textbox" class="form-control" name="search_res"  
+            ?>    <br>
+<input type="submit" value="Search" name="btnAction" class="btn btn-dark" /> 
+</form>
+<br>
 <table class="w3-table w3-bordered w3-card-4" style="width:90%">
   <thead>
   <tr style="background-color:#B0B0B0">
@@ -86,11 +110,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th width="10%">Add</th> 
   </tr>
   </thead>
+  <?php 
+       if(count($list_of_media)==0){
+         echo "<p>No Results Found.</p>";
+       }
+  ?>
+
   <?php foreach ($list_of_media as $media): ?>
   <tr>
-    <td><?php echo $media['common_title']; ?></td>
+    <td><?php echo "<h5>".$media['common_title']."</h5>"; 
+     $type = getMediaInfo_byID($media['unique_title_identifier']);
+     getInfo_byType($media['unique_title_identifier'],$type);?></td>
+   
     <td>
       <form action="add_rating.php" method="post">
+        <input type="hidden" name="email" value="<?php echo $email ?>">
         <input type="submit" value="Add" name="btnAction" class="btn btn-primary" />
         <input type="hidden" name="title" value="<?php echo $media['common_title'] ?>" />
         <input type="hidden" name="title_id" value="<?php echo $media['unique_title_identifier'] ?>" />     

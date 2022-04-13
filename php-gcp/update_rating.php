@@ -4,8 +4,7 @@
 require('connect-db.php');
 require('user_functions.php');
 //dfvsfv
-$list_of_media = getAllMedia();
-$list_of_watched = getAllWatched($_SESSION["email"]);
+
 
 // if ($_SERVER['REQUEST_METHOD'] == 'POST')
 // {
@@ -18,13 +17,14 @@ $list_of_watched = getAllWatched($_SESSION["email"]);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
+    $email = $_POST['email'];
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Update")
     {  
       // If the button is clicked and its value is "Update" then retrieve info about that friend.
       // We'll later fill in the friend's info in the form so that a user can update the info.
-      $_SESSION['watch_to_update_id'] = $_POST['watch_to_update'];
+      
       $watch_to_update = getMedia_byID($_POST['watch_to_update']);
-      $list_of_watched = getAllWatched($_SESSION["email"]);
+      $list_of_watched = getAllWatched($_POST["email"]);
       // To fill in the form, assign the pieces of info to the value attributes of form input textboxes.
       // Then, we'll wait until a user makes some changes to the friend's info 
       // and click the "Confirm update" button to actually make it reflect the database. 
@@ -32,7 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
 
 }
-    
+$list_of_media = getAllMedia();
+$list_of_watched = getAllWatched($email);
+$watch_to_update_id = $watch_to_update['unique_title_identifier'];
 ?>
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
@@ -68,8 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   -->
   
   <!-- If you choose to use a favicon, specify the destination of the resource in href -->
-  <link rel="icon" type="image/png" href="http://www.cs.virginia.edu/~up3f/cs4750/images/db-icon.png" />
-  
+  <link rel="icon" type="image/png" href="https://clipartix.com/wp-content/uploads/2017/01/Movie-camera-clip-art-clipart-free-download-11.png" />
   <!-- if you choose to download bootstrap and host it locally -->
   <!-- <link rel="stylesheet" href="path-to-your-file/bootstrap.min.css" /> --> 
   
@@ -94,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <div class="container">
 
       <?php 
-            $media_to_update = getMedia_byID($_SESSION['watch_to_update_id']);
+            $media_to_update = getMedia_byID($watch_to_update['unique_title_identifier']);
       ?>
   <h1><?php echo $media_to_update["common_title"]?></h1>  
 
@@ -147,7 +148,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         <input type="radio"class="form-check-input"  value="10" id="10" name="rating" required/>
   </div>
   <?php 
-            $watch_to_update = getWatched_byEmailID($_SESSION["email"],$_SESSION['watch_to_update_id']);
+            $watch_to_update = getWatched_byEmailID($email,$watch_to_update['unique_title_identifier']);
+           
       ?>
   <div class="row mb-3 mx-3">
     Review:
@@ -155,6 +157,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </div>
 
 <div class="row mb-3 mx-3">
+<input type="hidden" name="email" value="<?php echo $email ?>">
+<input type="hidden" name="watch_to_update_id" value="<?php echo $watch_to_update_id ?>">
   <input type="submit" value="Confirm update" name="btnAction" class="btn btn-dark" 
         title="confirm update a watch" />
  </div>

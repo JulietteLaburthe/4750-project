@@ -1,19 +1,25 @@
-
 <?php
+// echo "EMAIL: ".$_POST['email'];
+error_reporting(E_ALL ^ E_WARNING); 
 //session_start();
 require('connect-db.php');
 require('user_functions.php');
 //dfvsfv
-$list_of_media = getAllMedia();
 
+$list_of_media = getAllMedia();
+if ($_SERVER['REQUEST_METHOD'] == 'GET'){
+      $email =$_GET['email'];
+      }
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add"){ 
-        $_SESSION['current_title'] = $_POST['title'];
-        $_SESSION['current_title_id'] = $_POST['title_id'];
+        $current_title = $_POST['title'];
+        $current_title_id = $_POST['title_id'];
   }
-    
+  $email =$_POST['email'];
 }
+$link_address= "https://localhost/php-gcp/watchlist.php?email=". $email."";
+$link_address2= "https://localhost/php-gcp/add_media.php?email=". $email."";
 ?>
 
 
@@ -51,8 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   -->
   
   <!-- If you choose to use a favicon, specify the destination of the resource in href -->
-  <link rel="icon" type="image/png" href="http://www.cs.virginia.edu/~up3f/cs4750/images/db-icon.png" />
-  
+  <link rel="icon" type="image/png" href="https://clipartix.com/wp-content/uploads/2017/01/Movie-camera-clip-art-clipart-free-download-11.png" />
   <!-- if you choose to download bootstrap and host it locally -->
   <!-- <link rel="stylesheet" href="path-to-your-file/bootstrap.min.css" /> --> 
   
@@ -69,15 +74,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" href="add_media.php">Add Media</a>
-      <a class="nav-item nav-link" href="watchlist.php">Watchlist</a>
+    <a class="nav-item nav-link active" href="<?php echo $link_address2;?>">Add Media</a>
+      <a class="nav-item nav-link"  href="<?php echo $link_address;?>">Watchlist<a/>
     </div>
   </div>
 </nav>
 <div class="container">
-  <h1><?php echo $_SESSION["current_title"]?></h1>  
+  <h1><?php echo $current_title?></h1>  
 
   <form name="mainForm" action="watchlist.php" method="post">   
+  <input type="hidden" name="email" value="<?php echo $email ?>">
+  <input type="hidden" name="current_title" value="<?php echo $current_title ?>">
+  <input type="hidden" name="current_title_id" value="<?php echo $current_title_id ?>">
   <div class="row mb-3 mx-3">
     Rating: 
   </div>
@@ -130,6 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <input type="text" class="form-control" name="review"/> 
 </div>
 <div class="row mb-3 mx-3">
+ 
   <input type="submit" value="Add to Watchlist" name="btnAction" class="btn btn-dark" 
         title="insert a watch" />
         </div>
