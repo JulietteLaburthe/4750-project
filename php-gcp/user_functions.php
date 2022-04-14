@@ -1,6 +1,6 @@
 <?php
-session_start();
-ob_start();
+// session_start();
+// ob_start();
 function login($email, $password)
 {
 		global $db;
@@ -27,16 +27,17 @@ function login($email, $password)
             //setcookie("email", $results[0], time() + 3600);
             //setcookie("username",$results[1], time() + 3600);
             //setcookie("password", $results[2], time() + 3600);
-            $_SESSION['email'] = $email;
-            $_SESSION['username'] = $query[1];
-			header("Location: https://cs4750-project-db.uk.r.appspot.com/add_rating.php");
-	
+            // $_SESSION['email'] = $email;
+            // $_SESSION['username'] = $query[1];
+			echo '<a href="https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=' . $email . '">Login Successful! Click here to start Adding Media to Your Watchlist!</a>';
+
+
 			
 
 			
-			ob_end_flush();
+		
             
-    }else{ echo "Error logging in: incorrect password";}
+    }else{echo "Error logging in: incorrect password";}
 
 
     
@@ -75,9 +76,9 @@ function signup($email,$username,$password){
        $statement->execute();
        $results = $statement->fetch();   
        $statement->closeCursor();
-       $_SESSION['email'] = $email;
-       $_SESSION['username'] = $username;
-	   header("Location: add_media.php");
+    //    $_SESSION['email'] = $email;
+    //    $_SESSION['username'] = $username;
+	echo '<a href="https://cs4750-project-db.uk.r.appspot.com//add_media.php?email=' . $email . '">Sign Up Successful! Click here to start Adding Media to Your Watchlist!</a>';;
 	
 
        return true;

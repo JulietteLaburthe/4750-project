@@ -2,22 +2,30 @@
 
 <?php
 //session_start();
+error_reporting(E_ALL ^ E_WARNING); 
 require('connect-db.php');
 require('user_functions.php');
+if ($_SERVER['REQUEST_METHOD'] == 'GET'){
+$email =$_GET['email'];
+}
+
 $list_of_media = [];
 // $t = getMediaInfo_byID($list_of_media[0][0]);
 // getInfo_byType($list_of_media[0][0],$t);
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['btnAction']) && !empty($_POST['selectButton']) && $_POST['btnAction'] == "Search"){ 
-    $_SESSION['by'] = $_POST['selectButton'];
-    $_SESSION['search'] = $_POST['search_res'];
-    $list_of_media = getMedia_byQuery($_SESSION['by'],$_SESSION['search']);
-   
+    $by = $_POST['selectButton'];
+    $search = $_POST['search_res'];
+    $list_of_media = getMedia_byQuery($by,$search);
+    
     // $list_of_watched = getAllWatched($_SESSION["email"]);
 }
-    
+$email = $_POST['email'];
+// echo "email: ". $email;
 }
+$link_address= "https://cs4750-project-db.uk.r.appspot.com/watchlist.php?email=". $email."";
+$link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=". $email."";
 ?>
 
 <!-- 1. create HTML5 doctype -->
@@ -72,8 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="add_media.php">Add Media</a>
-      <a class="nav-item nav-link" href="watchlist.php">Watchlist</a>
+      <a class="nav-item nav-link active" href="<?php echo $link_address2;?>">Add Media</a>
+      <a class="nav-item nav-link"  href="<?php echo $link_address;?>">Watchlist<a/>
     </div>
   </div>
 </nav>
@@ -83,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <h3>Search By: </h3>
 <form action="add_media.php" method="post">
 Title
+<input type="hidden" name="email" value="<?php echo $email ?>">
 <input type="radio" name="selectButton" value="Title" required>
 Actor
 <input type="radio" name="selectButton" value="Actor">
@@ -115,6 +124,7 @@ Director
    
     <td>
       <form action="add_rating.php" method="post">
+        <input type="hidden" name="email" value="<?php echo $email ?>">
         <input type="submit" value="Add" name="btnAction" class="btn btn-primary" />
         <input type="hidden" name="title" value="<?php echo $media['common_title'] ?>" />
         <input type="hidden" name="title_id" value="<?php echo $media['unique_title_identifier'] ?>" />     

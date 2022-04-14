@@ -2,50 +2,60 @@
 //session_start();
 require('connect-db.php');
 require('user_functions.php');
+error_reporting(E_ALL ^ E_WARNING); 
+if ($_SERVER['REQUEST_METHOD'] == 'GET'){
+  $email =$_GET['email'];
+  }
+// echo "email: " . $email;
 $list_of_media = getAllMedia();
-$list_of_watched = getAllWatched($_SESSION["email"]);
+$list_of_watched = getAllWatched($email);
+
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
+    $email = $_POST['email'];
+      // echo "EMAIL: ". $email;
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add to Watchlist"){ 
-        $_SESSION['current_rating'] = $_POST['rating'];
-        $_SESSION['current_review'] = $_POST['review'];
-        addMedia($_SESSION["email"], $_SESSION['current_title_id'], $_SESSION['current_rating'], $_SESSION['current_review']);
+        $current_rating = $_POST['rating'];
+        $current_review = $_POST['review'];
+        $current_title_id = $_POST['current_title_id'];
+        addMedia($email, $current_title_id, $current_rating, $current_review);
        
-        $list_of_watched = getAllWatched($_SESSION["email"]);
+        $list_of_watched = getAllWatched($email);
     }
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Confirm update")
     {
-      $_SESSION['current_rating'] = $_POST['rating'];
-      $_SESSION['current_review'] = $_POST['review'];
-      //console.log("worked");
-      updateMedia($_SESSION["email"], $_SESSION['watch_to_update_id'], $_SESSION['current_rating'], $_SESSION['current_review']);
-      $list_of_watched = getAllWatched($_SESSION["email"]);
+      $current_rating = $_POST['rating'];
+      $current_review = $_POST['review'];
+      $watch_to_update_id = $_POST['watch_to_update_id'];
+      updateMedia($email, $watch_to_update_id, $current_rating, $current_review);
+      $list_of_watched = getAllWatched($email);
     }
 
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete")
     {
 
-      $_SESSION['watch_to_delete'] = $_POST['watch_to_delete'];
-      deleteMedia($_SESSION['email'],$_SESSION['watch_to_delete']);
-      $list_of_watched = getAllWatched($_SESSION["email"]);
+      $watch_to_delete = $_POST['watch_to_delete'];
+      deleteMedia($email,$watch_to_delete);
+      $list_of_watched = getAllWatched($email);
     }
 
     //Sort by Rating
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Sort by Rating")
     {
-      $list_of_watched = getAllWatchedbyRating($_SESSION["email"]);
+      $list_of_watched = getAllWatchedbyRating($email);
     }
 
-    //Sort by Rating
+    //Sort by Title
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Sort by Title")
     {
-      $list_of_watched = getAllWatchedbyTitle($_SESSION["email"]);
+      $list_of_watched = getAllWatchedbyTitle($email);
     }
-    
+  
 }
-
+$link_address= "https://cs4750-project-db.uk.r.appspot.com/watchlist.php?email=". $email."";
+$link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=". $email."";
 
 ?>
 
@@ -100,8 +110,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" href="add_media.php">Add Media</a>
-      <a class="nav-item nav-link active" href="watchlist.php">Watchlist</a>
+    <a class="nav-item nav-link active" href="<?php echo $link_address2;?>">Add Media</a>
+      <a class="nav-item nav-link"  href="<?php echo $link_address;?>">Watchlist<a/>
     </div>
   </div>
 </nav>
@@ -111,9 +121,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <div>
   <form method="post" action="watchlist.php" style ="display: inline;">
       <!-- More code here -->
+      <input type="hidden" name="email" value="<?php echo $email ?>">
       <input type="submit" value="Sort by Title" name="btnAction" class="btn btn-success" />
   </form>
   <form method="post" action="watchlist.php" id="form2" style ="display: inline;">
+  <input type="hidden" name="email" value="<?php echo $email ?>">
       <!-- More code here -->
       <input type="submit" value="Sort by Rating" name="btnAction" class="btn btn-primary" />
   </form>
@@ -139,13 +151,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <td><?php echo $watched['user_comment']; ?></td>
     <td>
       <form action="update_rating.php" method="post">
+      <input type="hidden" name="email" value="<?php echo $email ?>">
+      <input type="hidden" name="current_title" value="<?php echo $current_title ?>">
         <input type="submit" value="Update" name="btnAction" class="btn btn-primary" />
         <input type="hidden" name="watch_to_update" value="<?php echo $watched['unique_title_identifier']?>" />      
       </form>
     </td>
     <td>
     <form action="watchlist.php" method="post">
+    <input type="hidden" name="email" value="<?php echo $email ?>">
+  <input type="hidden" name="current_title" value="<?php echo $current_title ?>">
+  <input type="hidden" name="current_title_id" value="<?php echo $current_title_id ?>">
         <input type="submit" value="Delete" name="btnAction" class="btn btn-danger" />
+
         <input type="hidden" name="watch_to_delete" value="<?php echo $watched['unique_title_identifier'] ?>" />      
       </form>
     </td> 
