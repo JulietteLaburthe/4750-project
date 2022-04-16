@@ -38,7 +38,7 @@
 <br><br> 
 <div class="container" >
 
-<div class="container" style="text-align: center; padding-bottom:7%">
+<div class="container" style="text-align: center; padding-bottom:10%">
  <font color="white"> <h1 style="font-size:80px; font-family: 'DM Sans', sans-serif;">WatchShelf</h1>  </font>
  <p style="color:white;  font-size:20px; font-family: 'Montserrat', sans-serif;">remember what moved you.</p>
  <img src="movie_image.png" alt="movie icon on home page" style="width: 400px; height:auto;">

@@ -18,7 +18,7 @@ function login($email, $password)
     // echo $results[2] ."\n"; //returns the password
    
     if ($results == null) {
-        echo "<div class='container' style='text-align: center;width: 800px;height:30px;background-color:black;border-radius: 15px;'><p style='color:white'>Error checking for user: email does not exist</p></div>";
+        echo "<br></br><div class='container' style='text-align: center;width: 500px;height:30px;background-color:#1a0641;border-radius: 7px;'><p style='color:white'>Error checking for user: email does not exist</p></div>";
        
     } else if (!empty($results)){
         // $p = password_hash($password,PASSWORD_DEFAULT);
@@ -30,7 +30,8 @@ function login($email, $password)
             // $_SESSION['email'] = $email;
 			// $_SESSION['username'] = $query[1];
 			
-			echo '<div class="container" style="text-align: center;width: 800px;height:30px;background-color:black;border-radius: 15px;"><a style="color:white" href="https://localhost/php-gcp/add_media?email=' . $email . '">Login Successful! Click here to start Adding Media to Your Watchlist!</a></div>';
+			echo '<br></br> <div class="container" style="text-align: center;width: 600px;height:30px;background-color:#1a0641;border-radius: 15px; "><a href="https://localhost/php-gcp/add_media?email=' . $email . '" style="color:white">Login Successful! 
+			Click here to start Adding Media to Your Watchlist!</a></div>';
 
 
 			
