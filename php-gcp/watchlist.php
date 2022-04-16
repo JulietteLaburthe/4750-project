@@ -2,36 +2,61 @@
 //session_start();
 require('connect-db.php');
 require('user_functions.php');
+error_reporting(E_ALL ^ E_WARNING); 
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET'){
+  $email =$_GET['email'];
+  }
+// echo "email: " . $email;
 $list_of_media = getAllMedia();
-$list_of_watched = getAllWatched($_SESSION["email"]);
+$list_of_watched = getAllWatched($email);
+
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
+    $email = $_POST['email'];
+      // echo "EMAIL: ". $email;
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add to Watchlist"){ 
-        $_SESSION['current_rating'] = $_POST['rating'];
-        $_SESSION['current_review'] = $_POST['review'];
-        addMedia($_SESSION["email"], $_SESSION['current_title_id'], $_SESSION['current_rating'], $_SESSION['current_review']);
-        $list_of_watched = getAllWatched($_SESSION["email"]);
+        $current_rating = $_POST['rating'];
+        $current_review = $_POST['review'];
+        $current_title_id = $_POST['current_title_id'];
+        addMedia($email, $current_title_id, $current_rating, $current_review);
+       
+        $list_of_watched = getAllWatched($email);
     }
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Confirm update")
     {
-      $_SESSION['current_rating'] = $_POST['rating'];
-      $_SESSION['current_review'] = $_POST['review'];
-      //console.log("worked");
-      updateMedia($_SESSION["email"], $_SESSION['watch_to_update_id'], $_SESSION['current_rating'], $_SESSION['current_review']);
-      $list_of_watched = getAllWatched($_SESSION["email"]);
+      $current_rating = $_POST['rating'];
+      $current_review = $_POST['review'];
+      $watch_to_update_id = $_POST['watch_to_update_id'];
+      updateMedia($email, $watch_to_update_id, $current_rating, $current_review);
+      $list_of_watched = getAllWatched($email);
     }
 
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete")
     {
 
-      $_SESSION['watch_to_delete'] = $_POST['watch_to_delete'];
-      deleteMedia($_SESSION['email'],$_SESSION['watch_to_delete']);
-      $list_of_watched = getAllWatched($_SESSION["email"]);
+      $watch_to_delete = $_POST['watch_to_delete'];
+      deleteMedia($email,$watch_to_delete);
+      $list_of_watched = getAllWatched($email);
     }
-    
-}
 
+    //Sort by Rating
+    if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Sort by Rating")
+    {
+      $list_of_watched = getAllWatchedbyRating($email);
+    }
+
+    //Sort by Title
+    if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Sort by Title")
+    {
+      $list_of_watched = getAllWatchedbyTitle($email);
+    }
+  
+}
+$link_address= "https://cs4750-project-db.uk.r.appspot.com/watchlist.php?email=". $email."";
+$link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=". $email."";
 
 ?>
 
@@ -69,8 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   -->
   
   <!-- If you choose to use a favicon, specify the destination of the resource in href -->
-  <link rel="icon" type="image/png" href="http://www.cs.virginia.edu/~up3f/cs4750/images/db-icon.png" />
-  
+  <link rel="icon" type="image/png" href="https://clipartix.com/wp-content/uploads/2017/01/Movie-camera-clip-art-clipart-free-download-11.png" />
   <!-- if you choose to download bootstrap and host it locally -->
   <!-- <link rel="stylesheet" href="path-to-your-file/bootstrap.min.css" /> --> 
   
@@ -79,31 +103,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
        
 </head>
 
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">WatchShelf</a>
+<body style="background-color:#3a2961 ;">
+<nav class="navbar navbar-expand-lg " style="background-color: #3a2961">
+<div class="navbar-nav">
+<a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/add_media.php" > <img src="https://cdn-icons-png.flaticon.com/128/1946/1946436.png" style="height: 25px;"/></a>
+</div>
+  <h2 class="navbar-brand" style="padding: 10px;color:white;font-family: sans-serif" >WatchShelf</h2>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" href="add_media.php">Add Media</a>
-      <a class="nav-item nav-link active" href="watchlist.php">Watchlist</a>
-    </div>
-  </div>
+ 
+      <a class="nav-item nav-link active" href="<?php echo $link_address2;?>" style="padding: 10px;color:white;font-family: sans-serif" >Add Media</a>
+      <a class="nav-item nav-link"  href="<?php echo $link_address;?>"style="padding: 10px;color:#f44fb1;font-family: sans-serif" >Watchlist<a/>
+      <a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/" > <img src="https://cdn-icons-png.flaticon.com/128/1828/1828479.png" style="height: 25px;"/></a>
+
 </nav>
 <div class="container">
-<h1>My Watchlist</h1>
-<h3>List of Movies</h3>
-
-<table class="w3-table w3-bordered w3-card-4" style="width:90%">
+<h1 style="font-size:50px;font-family: sans-serif;color:white">My Watchlist</h1>
+<h3 style="font-family: sans-serif;color:#f44fb1;">List of Movies</h3>
+<div>
+  <form method="post" action="watchlist.php" style ="display: inline;">
+      <!-- More code here -->
+      <input type="hidden" name="email" value="<?php echo $email ?>">
+      <input type="submit" value="Sort by Title" name="btnAction" class="btn btn-success" />
+  </form>
+  <form method="post" action="watchlist.php" id="form2" style ="display: inline;">
+  <input type="hidden" name="email" value="<?php echo $email ?>">
+      <!-- More code here -->
+      <input type="submit" value="Sort by Rating" name="btnAction" class="btn btn-primary" />
+  </form>
+</div>
+<br>
+<table class="w3-table w3-bordered w3-card-4" style="width:90%;background-color:black">
   <thead>
-  <tr style="background-color:#B0B0B0">
-    <th width="35%">Title</th>
-    <th width="10%">Rating</th>
-    <th width="35%">Review</th> 
-    <th width="10%">Update</th>
-    <th width="10%">Delete</th>
+  <tr style="background-color:grey">
+  <th width="35%"style="color:white">Title</th> 
+    <th width="10%"style="color:white">Rating</th>
+    <th width="35%"style="color:white">Review</th> 
+    <th width="10%"style="color:white">Update</th>
+    <th width="10%"style="color:white">Delete</th>
   </tr>
   </thead>
   <?php foreach ($list_of_watched as $watched): ?>
@@ -111,18 +149,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <?php 
         $media_watched = getMedia_byID($watched['unique_title_identifier']);
     ?>
-    <td><?php echo $media_watched['common_title']; ?></td>
-    <td><?php echo $watched['rating']; ?></td>
-    <td><?php echo $watched['user_comment']; ?></td>
+    <td style="color:#f44fb1;font-family:sans-serif"><?php echo $media_watched['common_title']; ?></td>
+    <td style="color:#f44fb1;font-family:sans-serif"><?php echo $watched['rating']; ?></td>
+    <td style="color:#f44fb1;font-family:sans-serif"><?php echo $watched['user_comment']; ?></td>
     <td>
       <form action="update_rating.php" method="post">
-        <input type="submit" value="Update" name="btnAction" class="btn btn-primary" />
-        <input type="hidden" name="watch_to_update" value="<?php echo $watched['unique_title_identifier'] ?>" />      
+      <input type="hidden" name="email" value="<?php echo $email ?>">
+      <input type="hidden" name="current_title" value="<?php echo $current_title ?>">
+        <input type="submit" value="Update" name="btnAction" class="btn btn-primary" style="background-color:#f44fb1;border:black"/>
+        <input type="hidden" name="watch_to_update" value="<?php echo $watched['unique_title_identifier']?>" />      
       </form>
     </td>
     <td>
     <form action="watchlist.php" method="post">
+    <input type="hidden" name="email" value="<?php echo $email ?>">
+  <input type="hidden" name="current_title" value="<?php echo $current_title ?>">
+  <input type="hidden" name="current_title_id" value="<?php echo $current_title_id ?>">
         <input type="submit" value="Delete" name="btnAction" class="btn btn-danger" />
+
         <input type="hidden" name="watch_to_delete" value="<?php echo $watched['unique_title_identifier'] ?>" />      
       </form>
     </td> 
@@ -131,6 +175,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
   
   </table>
-  </div>    
+  <br>
+  <h3 style="font-family: sans-serif;color:#f44fb1;">Rating Distribution</h3>
+  <table class="w3-table w3-bordered w3-card-4" style="width:90%;background-color:black">
+	<thead>
+	<tr style="background-color:grey">
+	  <th width="10%"style="color:white">Rating</th>
+	  <th width="10%"style="color:white">Count</th>
+	</tr>
+	</thead>
+	<?php
+  $results = getRatingDistribution($email);
+    foreach ($results as $result): ?>
+	<tr>
+	 
+	  <td style="color:#f44fb1;font-family:sans-serif"><?php echo $result["rating"]; ?></td>
+	  <td style="color:#f44fb1;font-family:sans-serif"><?php echo $result["rating_count"] ; ?></td>
+	
+  
+	</tr>
+	<?php endforeach; ?>
+  
+	
+	</table>
+  </div>  
+  <div class="container">
+    <?php getRatingDistribution($email); ?>
+  </div>  
 </body>
 </html>
