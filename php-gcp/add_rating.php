@@ -18,8 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   }
   $email =$_POST['email'];
 }
-$link_address= "https://localhost/4750-project/php-gcp/watchlist.php?email=". $email."";
-$link_address2= "https://localhost/4750-project/php-gcp/add_media.php?email=". $email."";
+$link_address= "https://cs4750-project-db.uk.r.appspot.com/watchlist.php?email=". $email."";
+$link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=". $email."";
 ?>
 
 
@@ -87,7 +87,7 @@ $link_address2= "https://localhost/4750-project/php-gcp/add_media.php?email=". $
  
       <a class="nav-item nav-link " href="<?php echo $link_address2;?>" style="padding: 10px;color:white;font-family: 'DM Sans', sans-serif;" >Add Media</a>
       <a class="nav-item nav-link "  href="<?php echo $link_address;?>"style="padding: 10px;color:white;font-family: 'DM Sans', sans-serif;" >Watchlist<a/>
-      <a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/home_page" > <img src="https://cdn-icons-png.flaticon.com/128/1828/1828479.png" style="height: 25px;"/></a>
+      <a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/home_page.php" > <img src="https://cdn-icons-png.flaticon.com/128/1828/1828479.png" style="height: 25px;"/></a>
 
 </nav>
 <div class="container" style="text-align: left; padding-bottom:7%">

@@ -36,8 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 $list_of_media = getAllMedia();
 $list_of_watched = getAllWatched($email);
 $watch_to_update_id = $watch_to_update['unique_title_identifier'];
-$link_address= "https://localhost/4750-project/php-gcp/watchlist.php?email=". $email."";
-$link_address2= "https://localhost/4750-project/php-gcp/add_media.php?email=". $email."";
+$link_address= "https://cs4750-project-db.uk.r.appspot.com/watchlist.php?email=". $email."";
+$link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=". $email."";
 ?>
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>

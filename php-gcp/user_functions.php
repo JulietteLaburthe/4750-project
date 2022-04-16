@@ -30,7 +30,7 @@ function login($email, $password)
             // $_SESSION['email'] = $email;
 			// $_SESSION['username'] = $query[1];
 			
-			echo '<br></br> <div class="container" style="text-align: center;width: 600px;height:30px;background-color:#1a0641;border-radius: 15px; "><a href="https://localhost/4750-project/php-gcp/add_media.php?email=' . $email . '" style="color:white">Login Successful! 
+			echo '<br></br> <div class="container" style="text-align: center;width: 600px;height:30px;background-color:#1a0641;border-radius: 15px; "><a href="https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=' . $email . '" style="color:white">Login Successful! 
 			Click here to start Adding Media to Your Watchlist!</a></div>';
 
 
@@ -81,7 +81,7 @@ function signup($email,$username,$password){
        $statement->closeCursor();
     //    $_SESSION['email'] = $email;
     //    $_SESSION['username'] = $username;
-	echo '<br></br> <div class="container" style="text-align: center;width: 600px;height:30px;background-color:#1a0641;border-radius: 15px; "><a href="https://localhost/4750-project/php-gcp/add_media?email=' . $email . '" style="color:white">Login Successful! 
+	echo '<br></br> <div class="container" style="text-align: center;width: 600px;height:30px;background-color:#1a0641;border-radius: 15px; "><a href="https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=' . $email . '" style="color:white">Login Successful! 
 	Click here to start Adding Media to Your Watchlist!</a></div>';
 	
 
