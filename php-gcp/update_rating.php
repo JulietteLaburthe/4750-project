@@ -18,6 +18,7 @@ require('user_functions.php');
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     $email = $_POST['email'];
+    $list_of_watched = getAllWatched($email);
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Update")
     {  
       // If the button is clicked and its value is "Update" then retrieve info about that friend.
@@ -35,12 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 $list_of_media = getAllMedia();
 $list_of_watched = getAllWatched($email);
 $watch_to_update_id = $watch_to_update['unique_title_identifier'];
-$link_address= "https://localhost/php-gcp/watchlist.php?email=". $email."";
-$link_address2= "https://localhost/php-gcp/add_media.php?email=". $email."";
+$link_address= "https://localhost/4750-project/php-gcp/watchlist.php?email=". $email."";
+$link_address2= "https://localhost/4750-project/php-gcp/add_media.php?email=". $email."";
 ?>
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
-<html>
+<html style="height:100%">
 <head>
   <meta charset="UTF-8">  
   
@@ -79,23 +80,33 @@ $link_address2= "https://localhost/php-gcp/add_media.php?email=". $email."";
   <!-- include your CSS -->
   <!-- <link rel="stylesheet" href="custom.css" />  -->
        
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&family=Montserrat:wght@500&display=swap');
+</style>
 </head>
-<body style="background-color:#3a2961 ;">
+
+<body style="height:100%; background-image: url('cleanbackground.png'); 
+ background-position: center;
+  background-size: 100% 100%;">
+<center>
+
+
 <nav class="navbar navbar-expand-lg " style="background-color: #3a2961">
 <div class="navbar-nav">
-<a style="padding: 10px;" href="https://localhost/php-gcp/add_media" > <img src="https://cdn-icons-png.flaticon.com/128/1946/1946436.png" style="height: 25px;"/></a>
+<a style="padding: 10px;" href="<?php echo $link_address2;?>" > <img src="https://cdn-icons-png.flaticon.com/128/1946/1946436.png" style="height: 25px;"/></a>
 </div>
-  <h2 class="navbar-brand" style="padding: 10px;color:white;font-family: sans-serif" >WatchShelf</h2>
+  <h2 class="navbar-brand" style="padding: 10px;color:white;font-family: 'DM Sans', sans-serif;" >WatchShelf</h2>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
  
-      <a class="nav-item nav-link active" href="<?php echo $link_address2;?>" style="padding: 10px;color:#f44fb1;font-family: sans-serif" >Add Media</a>
-      <a class="nav-item nav-link"  href="<?php echo $link_address;?>"style="padding: 10px;color:white;font-family: sans-serif" >Watchlist<a/>
-      <a style="padding: 10px;" href="https://localhost/php-gcp/add_media" > <img src="https://cdn-icons-png.flaticon.com/128/1828/1828479.png" style="height: 25px;"/></a>
+      <a class="nav-item nav-link " href="<?php echo $link_address2;?>" style="padding: 10px;color:white;font-family: 'DM Sans', sans-serif;" >Add Media</a>
+      <a class="nav-item nav-link"  href="<?php echo $link_address;?>"style="padding: 10px;color:white;font-family: 'DM Sans', sans-serif;" >Watchlist<a/>
+      <a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/home_page.php" > <img src="https://cdn-icons-png.flaticon.com/128/1828/1828479.png" style="height: 25px;"/></a>
 
 </nav>
-<div class="container">
+<div class="container" style="text-align: left; padding-bottom:7%">
 
       <?php 
             $media_to_update = getMedia_byID($watch_to_update['unique_title_identifier']);

@@ -25,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 // echo "email: ". $email;
 }
-$link_address= "https://localhost/php-gcp/watchlist.php?email=". $email."";
-$link_address2= "https://localhost/php-gcp/add_media.php?email=". $email."";
+$link_address= "https://localhost/4750-project/php-gcp/watchlist.php?email=". $email."";
+$link_address2= "https://localhost/4750-project/php-gcp/add_media.php?email=". $email."";
 ?>
 
 <!-- 1. create HTML5 doctype -->
@@ -85,7 +85,7 @@ $link_address2= "https://localhost/php-gcp/add_media.php?email=". $email."";
 
 <nav class="navbar navbar-expand-lg " style="background-color: #3a2961">
 <div class="navbar-nav">
-<a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/add_media.php" > <img src="https://cdn-icons-png.flaticon.com/128/1946/1946436.png" style="height: 25px;"/></a>
+<a style="padding: 10px;" href="<?php echo $link_address2;?>" > <img src="https://cdn-icons-png.flaticon.com/128/1946/1946436.png" style="height: 25px;"/></a>
 </div>
   <h2 class="navbar-brand" style="padding: 10px;color:white;font-family: 'DM Sans', sans-serif;" >WatchShelf</h2>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,12 +94,12 @@ $link_address2= "https://localhost/php-gcp/add_media.php?email=". $email."";
  
       <a class="nav-item nav-link active" href="<?php echo $link_address2;?>" style="padding: 10px;color:#f44fb1;font-family: 'DM Sans', sans-serif;" >Add Media</a>
       <a class="nav-item nav-link"  href="<?php echo $link_address;?>"style="padding: 10px;color:white;font-family: 'DM Sans', sans-serif;" >Watchlist<a/>
-      <a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/" > <img src="https://cdn-icons-png.flaticon.com/128/1828/1828479.png" style="height: 25px;"/></a>
+      <a style="padding: 10px;" href="https://localhost/4750-project/php-gcp/" > <img src="https://cdn-icons-png.flaticon.com/128/1828/1828479.png" style="height: 25px;"/></a>
 
 </nav>
 <div class="container" style="text-align: left;">
  <font color="white"> <h1 style="text-align: center;font-family: 'DM Sans', sans-serif;">Add Media</h1>  </font>
-<h3 style="font-family: sans-serif;color:#f44fb1;">Search By: </h3>
+<h3 style="font-family: 'DM Sans', sans-serif;color:#f44fb1;">Search By: </h3>
 <form action="add_media.php" method="post">
 
 <input type="hidden" name="email" value="<?php echo $email ?>">
