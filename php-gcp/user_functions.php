@@ -18,7 +18,7 @@ function login($email, $password)
     // echo $results[2] ."\n"; //returns the password
    
     if ($results == null) {
-        echo "Error checking for user: email does not exist";
+        echo "<div class='container' style='text-align: center;width: 800px;height:30px;background-color:black;border-radius: 15px;'><p style='color:white'>Error checking for user: email does not exist</p></div>";
        
     } else if (!empty($results)){
         // $p = password_hash($password,PASSWORD_DEFAULT);
@@ -29,7 +29,7 @@ function login($email, $password)
             //setcookie("password", $results[2], time() + 3600);
             // $_SESSION['email'] = $email;
             // $_SESSION['username'] = $query[1];
-			echo '<a href="https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=' . $email . '">Login Successful! Click here to start Adding Media to Your Watchlist!</a>';
+			echo '<div class="container" style="text-align: center;width: 800px;height:30px;background-color:black;border-radius: 15px;"><a style="color:white" href="https://localhost/php-gcp/add_media.php?email=' . $email . '">Login Successful! Click here to start Adding Media to Your Watchlist!</a></div>';
 
 
 			
@@ -37,7 +37,7 @@ function login($email, $password)
 			
 		
             
-    }else{echo "Error logging in: incorrect password";}
+    }else{echo "  <div class='container' style='text-align: center;width: 800px;height:30px;background-color:black;border-radius: 15px;'><p style='color:white'>Error logging in: incorrect password</p></div>";}
 
 
     
@@ -78,12 +78,12 @@ function signup($email,$username,$password){
        $statement->closeCursor();
     //    $_SESSION['email'] = $email;
     //    $_SESSION['username'] = $username;
-	echo '<a href="https://cs4750-project-db.uk.r.appspot.com//add_media.php?email=' . $email . '">Sign Up Successful! Click here to start Adding Media to Your Watchlist!</a>';;
+	echo '<div class="container" style="text-align: center;width: 800px;height:30px;background-color:black;border-radius: 15px;"><a style="color:white" href="https://localhost/php-gcp/add_media.php?email=' . $email . '">Sign Up Successful! Click here to start Adding Media to Your Watchlist!</a></div>';
 	
 
        return true;
     } else{
-        echo "Error : account already exists with this email";
+        echo "<div class='container' style='text-align: center;width: 800px;height:30px;background-color:black;border-radius: 15px;'><p style='color:white'>Error : account already exists with this email </p></div>";
         // echo  implode(",", $results1);
     }
     
@@ -112,7 +112,7 @@ function getAllMedia()
 
 	return $results;
 }
-function getMedia_byQuery($by,$search_res)
+function getMedia_byQuery($by,$search_res,$email)
 {	
 	global $db;
 	if ($by == 'Title'){
@@ -199,7 +199,7 @@ function getMediaInfo_byID($title_id){
 	//figure out which kind of media it is 
 	$media_types = array("movie","TVshow","short");
 	foreach ($media_types as $type){
-		$query = "select * from media where unique_title_identifier = :title_id";
+		$query = "select * from media where unique_title_identifier = :title_id ";
     
 
 		$statement = $db->prepare($query);
@@ -283,7 +283,7 @@ function getInfo_byType($id,$type){
 		$media_statement->execute();
 		$media_spec_result = $media_statement->fetch(PDO::FETCH_ASSOC);
 		if ($media_spec_result != null){
-			$media_spec_result = "<b> Year released: </b>".$media_spec_result['year_released'].", <b> Runtime (minutes): </b>".$media_spec_result['runtime'];
+			$media_spec_result = "<b style='color:#f44fb1;font-family: sans-serif'> Year released: </b>".$media_spec_result['year_released'].", <b style='color:#f44fb1;font-family: sans-serif'> Runtime (minutes): </b>".$media_spec_result['runtime'];
 		}else{
 			$media_spec_result = "No information found for this $type.";
 		}
@@ -295,7 +295,7 @@ function getInfo_byType($id,$type){
 		$media_statement->execute();
 		$media_spec_result = $media_statement->fetch(PDO::FETCH_ASSOC);
 		if ($media_spec_result != null){
-			$media_spec_result = "<b> Runtime (minutes): </b>".$media_spec_result['runtime'];
+			$media_spec_result = "<b style='color:#f44fb1;font-family: sans-serif'> Runtime (minutes): </b>".$media_spec_result['runtime'];
 		}else{
 			$media_spec_result = "No information found for this $type.";
 		}
@@ -307,12 +307,12 @@ function getInfo_byType($id,$type){
 		$media_statement->execute();
 		$media_spec_result = $media_statement->fetch(PDO::FETCH_ASSOC);
 		if ($media_spec_result != null){
-			$media_spec_result = "<b> Start year: </b>".$media_spec_result['start_year'].", <b>End year: </b>".$media_spec_result['end_year'];
+			$media_spec_result = "<b style='color:#f44fb1;font-family: sans-serif'> Start year: </b>".$media_spec_result['start_year'].", <b style='color:#f44fb1;font-family: sans-serif'>End year: </b>".$media_spec_result['end_year'];
 		}else{
 			$media_spec_result = "No information found for this $type.";
 		}
 	}
-	echo "<pre>" .implode("\n",["<b> Genres: </b>". $genres_result,"<b> Cast: </b>".$cast_result,"<b> Director: </b>".$director_result,"<b> Writer: </b>".$writer_result,$media_spec_result])."</pre>";
+	echo "<pre>" .implode("\n",["<b style='color:#f44fb1;font-family: sans-serif'> Genres: </b>". $genres_result,"<b style='color:#f44fb1;font-family: sans-serif'> Cast: </b>".$cast_result,"<b style='color:#f44fb1;font-family: sans-serif'> Director: </b>".$director_result,"<b 'style=color:#f44fb1;font-family: sans-serif'> Writer: </b>".$writer_result,$media_spec_result])."</pre>";
 } 
 
 
@@ -389,7 +389,7 @@ function addMedia($email, $unique_title_identifier, $rating, $user_comment)
 {
 	// db handler
 	global $db;
-	$query = "insert into has_watched values(:email, :unique_title_identifier, :user_comment, :rating)";
+	$query = "insert ignore into has_watched values(:email, :unique_title_identifier, :user_comment, :rating)";
 
 	// execute the sql
 	// $statement = $db->query($query);   // query() will compile and execute the sql

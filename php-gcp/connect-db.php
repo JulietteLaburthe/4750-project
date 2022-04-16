@@ -3,8 +3,8 @@
 
 ////////////////////////////////////////////
 /** S22, PHP (on Google Standard App Engine) connect to MySQL instance (GCP) **/
-$username = 'root';                      // or your username
-$password = '@DB4750Upsorn';        // or your password
+$username = 'access_db';                      // or your username
+$password = '@DbPassword543';        // or your password
 $host = 'cs4750-project-db:us-east4:media-database';       // projectID = cs4750, SQL instance ID = db-demo
 $dbname = 'media';                   // database name = guestbook
 $dsn = "mysql:unix_socket=/cloudsql/$host;dbname=$dbname";
@@ -13,11 +13,11 @@ $dsn = "mysql:unix_socket=/cloudsql/$host;dbname=$dbname";
 ////////////////////////////////////////////
 
 /** S22, PHP (on local XAMPP or CS server) connect to MySQL instance (GCP) **/
-// $username = 'root';                      // or your username
-// $password = '@DB4750Upsorn';        // or your password
-// $host = 'cs4750-project-db:us-east4:media-database';       // projectID = cs4750, SQL instance ID = db-demo
-// $dbname = 'media';                   // database name = guestbook
-// $dsn = "mysql:host=34.86.135.17;dbname=$dbname";       // connect PHP (XAMPP) to DB (GCP)
+$username = 'access_db';                      // or your username
+$password = '@DbPassword543';        // or your password
+$host = 'cs4750-project-db:us-east4:media-database';       // projectID = cs4750, SQL instance ID = db-demo
+$dbname = 'media';                   // database name = guestbook
+$dsn = "mysql:host=34.86.135.17;dbname=$dbname";       // connect PHP (XAMPP) to DB (GCP)
 
 // to get public IP addres of the SQL instance, go to GCP SQL overview page
 
@@ -65,8 +65,7 @@ try
    $db = new PDO($dsn, $username, $password);
    
    // dispaly a message to let us know that we are connected to the database 
-   // echo "<p>You are connected to the database --- dsn=$dsn, user=$username, pwd=$password </p>";y
-   
+   // echo "<p>You are connected to the database --- dsn=$dsn, user=$username, pwd=$password </p>";
 }
 catch (PDOException $e)     // handle a PDO exception (errors thrown by the PDO library)
 {

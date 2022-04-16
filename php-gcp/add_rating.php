@@ -18,8 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   }
   $email =$_POST['email'];
 }
-$link_address= "https://cs4750-project-db.uk.r.appspot.com/watchlist.php?email=". $email."";
-$link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=". $email."";
+$link_address= "https://localhost/php-gcp/watchlist.php?email=". $email."";
+$link_address2= "https://localhost/php-gcp/add_media.php?email=". $email."";
 ?>
 
 
@@ -66,80 +66,82 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
        
 </head>
 
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">WatchShelf</a>
+<body style="background-color:#3a2961 ;">
+<nav class="navbar navbar-expand-lg " style="background-color: #3a2961">
+<div class="navbar-nav">
+<a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/" > <img src="https://cdn-icons-png.flaticon.com/128/1946/1946436.png" style="height: 25px;"/></a>
+</div>
+  <h2 class="navbar-brand" style="padding: 10px;color:white;font-family: sans-serif" >WatchShelf</h2>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-    <a class="nav-item nav-link active" href="<?php echo $link_address2;?>">Add Media</a>
-      <a class="nav-item nav-link"  href="<?php echo $link_address;?>">Watchlist<a/>
-    </div>
-  </div>
+ 
+      <a class="nav-item nav-link active" href="<?php echo $link_address2;?>" style="padding: 10px;color:#f44fb1;font-family: sans-serif" >Add Media</a>
+      <a class="nav-item nav-link"  href="<?php echo $link_address;?>"style="padding: 10px;color:white;font-family: sans-serif" >Watchlist<a/>
+
 </nav>
 <div class="container">
-  <h1><?php echo $current_title?></h1>  
+  <h1 style="font-size:50px;font-family: sans-serif;color:white"><?php echo $current_title?></h1>  
 
   <form name="mainForm" action="watchlist.php" method="post">   
   <input type="hidden" name="email" value="<?php echo $email ?>">
   <input type="hidden" name="current_title" value="<?php echo $current_title ?>">
   <input type="hidden" name="current_title_id" value="<?php echo $current_title_id ?>">
   <div class="row mb-3 mx-3">
-    Rating: 
+   <h3 style="color:#f44fb1;font-family:sans-serif"><b> Rating: </b></h3>
   </div>
   <div class="mb-3 form-check form-check-inline">
-        <label for="0" class="form-check-label" >0</label>
+        <label for="0" class="form-check-label" >  <p style="color:#f44fb1;font-family:sans-serif"> 0</p></label>
         <input type="radio"class="form-check-input" value="0" id="0" name="rating" required/>
   </div>
   <div class="mb-3 form-check form-check-inline">
-        <label for="1" class="form-check-label" >1</label>
+        <label for="1" class="form-check-label" ><p style="color:#f44fb1;font-family:sans-serif">1</p></label>
         <input type="radio"class="form-check-input" value="1" id="1" name="rating" required/>
   </div>
   <div class="mb-3 form-check form-check-inline" >
-        <label for="2" class="form-check-label" >2</label>
+        <label for="2" class="form-check-label" ><p style="color:#f44fb1;font-family:sans-serif">2</p></label>
         <input type="radio"class="form-check-input"  value="2" id="2" name="rating" required/>
   </div>
   <div class="mb-3 form-check form-check-inline" >
-        <label for="3" class="form-check-label" >3</label>
+        <label for="3" class="form-check-label" ><p style="color:#f44fb1;font-family:sans-serif">3</p></label>
         <input type="radio"class="form-check-input"  value="3" id="3" name="rating" required/>
   </div>
   <div class="mb-3 form-check form-check-inline" >
-        <label for="4" class="form-check-label" >4</label>
+        <label for="4" class="form-check-label" ><p style="color:#f44fb1;font-family:sans-serif">4</p></label>
         <input type="radio"class="form-check-input"  value="4" id="4" name="rating" required/>
   </div>
   <div class="mb-3 form-check form-check-inline" >
-        <label for="5" class="form-check-label" >5</label>
+        <label for="5" class="form-check-label" ><p style="color:#f44fb1;font-family:sans-serif">5</p></label>
         <input type="radio"class="form-check-input"  value="5" id="5" name="rating" required/>
   </div>
   <div class="mb-3 form-check form-check-inline" >
-        <label for="6" class="form-check-label" >6</label>
+        <label for="6" class="form-check-label" ><p style="color:#f44fb1;font-family:sans-serif">6</p></label>
         <input type="radio"class="form-check-input"  value="6" id="6" name="rating" required/>
   </div>
   <div class="mb-3 form-check form-check-inline" >
-        <label for="7" class="form-check-label" >7</label>
+        <label for="7" class="form-check-label" ><p style="color:#f44fb1;font-family:sans-serif">7</p></label>
         <input type="radio"class="form-check-input"  value="7" id="7" name="rating" required/>
   </div>
   <div class="mb-3 form-check form-check-inline" >
-        <label for="8" class="form-check-label" >8</label>
+        <label for="8" class="form-check-label" ><p style="color:#f44fb1;font-family:sans-serif">8</p></label>
         <input type="radio"class="form-check-input"  value="8" id="8" name="rating" required/>
   </div>
   <div class="mb-3 form-check form-check-inline" >
-        <label for="9" class="form-check-label" >9</label>
+        <label for="9" class="form-check-label" ><p style="color:#f44fb1;font-family:sans-serif">9</p></label>
         <input type="radio"class="form-check-input"  value="9" id="9" name="rating" required/>
   </div>
   <div class="mb-3 form-check form-check-inline" >
-        <label for="10" class="form-check-label" >10</label>
+        <label for="10" class="form-check-label" ><p style="color:#f44fb1;font-family:sans-serif">10</p></label>
         <input type="radio"class="form-check-input"  value="10" id="10" name="rating" required/>
   </div>
   <div class="row mb-3 mx-3">
-    Review:
-    <input type="text" class="form-control" name="review"/> 
+  <h3 style="color:#f44fb1;font-family:sans-serif"><b> Review: </b></h3>
+  <br>
+    <input type="text" class="form-control" name="review"  style="background-color:grey;border-color:black;color:white""/> 
 </div>
 <div class="row mb-3 mx-3">
  
-  <input type="submit" value="Add to Watchlist" name="btnAction" class="btn btn-dark" 
+  <input type="submit" value="Add to Watchlist" name="btnAction" class="btn btn-dark" style="background-color:#f44fb1;border-color:#3a2961"
         title="insert a watch" />
         </div>
 </form> 

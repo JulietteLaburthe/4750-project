@@ -54,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
   
 }
-$link_address= "https://cs4750-project-db.uk.r.appspot.com/watchlist.php?email=". $email."";
-$link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=". $email."";
+$link_address= "https://localhost/php-gcp/watchlist.php?email=". $email."";
+$link_address2= "https://localhost/php-gcp/add_media.php?email=". $email."";
 
 ?>
 
@@ -102,22 +102,23 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
        
 </head>
 
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">WatchShelf</a>
+<body style="background-color:#3a2961 ;">
+<nav class="navbar navbar-expand-lg " style="background-color: #3a2961">
+<div class="navbar-nav">
+<a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/" > <img src="https://cdn-icons-png.flaticon.com/128/1946/1946436.png" style="height: 25px;"/></a>
+</div>
+  <h2 class="navbar-brand" style="padding: 10px;color:white;font-family: sans-serif" >WatchShelf</h2>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-    <a class="nav-item nav-link active" href="<?php echo $link_address2;?>">Add Media</a>
-      <a class="nav-item nav-link"  href="<?php echo $link_address;?>">Watchlist<a/>
-    </div>
-  </div>
+ 
+      <a class="nav-item nav-link active" href="<?php echo $link_address2;?>" style="padding: 10px;color:white;font-family: sans-serif" >Add Media</a>
+      <a class="nav-item nav-link"  href="<?php echo $link_address;?>"style="padding: 10px;color:#f44fb1;font-family: sans-serif" >Watchlist<a/>
+
 </nav>
 <div class="container">
-<h1>My Watchlist</h1>
-<h3>List of Movies</h3>
+<h1 style="font-size:50px;font-family: sans-serif;color:white">My Watchlist</h1>
+<h3 style="font-family: sans-serif;color:#f44fb1;">List of Movies</h3>
 <div>
   <form method="post" action="watchlist.php" style ="display: inline;">
       <!-- More code here -->
@@ -130,15 +131,15 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
       <input type="submit" value="Sort by Rating" name="btnAction" class="btn btn-primary" />
   </form>
 </div>
-
-<table class="w3-table w3-bordered w3-card-4" style="width:90%">
+<br>
+<table class="w3-table w3-bordered w3-card-4" style="width:90%;background-color:black">
   <thead>
-  <tr style="background-color:#B0B0B0">
-    <th width="35%">Title</th>
-    <th width="10%">Rating</th>
-    <th width="35%">Review</th> 
-    <th width="10%">Update</th>
-    <th width="10%">Delete</th>
+  <tr style="background-color:grey">
+    <th width="35%"style="color:white">Title</th>
+    <th width="10%"style="color:white">Rating</th>
+    <th width="35%"style="color:white">Review</th> 
+    <th width="10%"style="color:white">Update</th>
+    <th width="10%"style="color:white">Delete</th>
   </tr>
   </thead>
   <?php foreach ($list_of_watched as $watched): ?>
@@ -146,14 +147,14 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
     <?php 
         $media_watched = getMedia_byID($watched['unique_title_identifier']);
     ?>
-    <td><?php echo $media_watched['common_title']; ?></td>
-    <td><?php echo $watched['rating']; ?></td>
-    <td><?php echo $watched['user_comment']; ?></td>
+    <td style="color:#f44fb1;font-family:sans-serif"><?php echo $media_watched['common_title']; ?></td>
+    <td style="color:#f44fb1;font-family:sans-serif"><?php echo $watched['rating']; ?></td>
+    <td style="color:#f44fb1;font-family:sans-serif"><?php echo $watched['user_comment']; ?></td>
     <td>
       <form action="update_rating.php" method="post">
       <input type="hidden" name="email" value="<?php echo $email ?>">
       <input type="hidden" name="current_title" value="<?php echo $current_title ?>">
-        <input type="submit" value="Update" name="btnAction" class="btn btn-primary" />
+        <input type="submit" value="Update" name="btnAction" class="btn btn-primary" style="background-color:#f44fb1;border:black"/>
         <input type="hidden" name="watch_to_update" value="<?php echo $watched['unique_title_identifier']?>" />      
       </form>
     </td>

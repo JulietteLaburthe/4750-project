@@ -14,18 +14,19 @@ $list_of_media = [];
 // getInfo_byType($list_of_media[0][0],$t);
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
+  $email = $_POST['email'];
   if (!empty($_POST['btnAction']) && !empty($_POST['selectButton']) && $_POST['btnAction'] == "Search"){ 
     $by = $_POST['selectButton'];
     $search = $_POST['search_res'];
-    $list_of_media = getMedia_byQuery($by,$search);
+    $list_of_media = getMedia_byQuery($by,$search,$email);
     
     // $list_of_watched = getAllWatched($_SESSION["email"]);
 }
-$email = $_POST['email'];
+
 // echo "email: ". $email;
 }
-$link_address= "https://cs4750-project-db.uk.r.appspot.com/watchlist.php?email=". $email."";
-$link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=". $email."";
+$link_address= "https://localhost/php-gcp/watchlist.php?email=". $email."";
+$link_address2= "https://localhost/php-gcp/add_media.php?email=". $email."";
 ?>
 
 <!-- 1. create HTML5 doctype -->
@@ -72,60 +73,61 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
        
 </head>
 
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">WatchShelf</a>
+<body style="background-color:#3a2961 ;">
+<nav class="navbar navbar-expand-lg " style="background-color: #3a2961">
+<div class="navbar-nav">
+<a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/" > <img src="https://cdn-icons-png.flaticon.com/128/1946/1946436.png" style="height: 25px;"/></a>
+</div>
+  <h2 class="navbar-brand" style="padding: 10px;color:white;font-family: sans-serif" >WatchShelf</h2>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="<?php echo $link_address2;?>">Add Media</a>
-      <a class="nav-item nav-link"  href="<?php echo $link_address;?>">Watchlist<a/>
-    </div>
-  </div>
+ 
+      <a class="nav-item nav-link active" href="<?php echo $link_address2;?>" style="padding: 10px;color:#f44fb1;font-family: sans-serif" >Add Media</a>
+      <a class="nav-item nav-link"  href="<?php echo $link_address;?>"style="padding: 10px;color:white;font-family: sans-serif" >Watchlist<a/>
+
 </nav>
 <div class="container">
 
-<h1>Add Media</h1>
-<h3>Search By: </h3>
+<font color="white" ><h1 style="font-size:50px;font-family: sans-serif">Add Media</h1></font>
+<h3 style="font-family: sans-serif;color:#f44fb1;">Search By: </h3>
 <form action="add_media.php" method="post">
-Title
+
 <input type="hidden" name="email" value="<?php echo $email ?>">
-<input type="radio" name="selectButton" value="Title" required>
-Actor
-<input type="radio" name="selectButton" value="Actor">
-Director
-<input type="radio" name="selectButton" value="Director">
-<br>
-<input type="textbox" class="form-control" name="search_res"  
+<select name="selectButton" style="background-color:grey;border:black">
+<option value="Title" >Title</option>
+<option value="Actor">Actor</option>
+<option value="Director">Director </option>
+</select>
+<br><br>
+<input type="textbox" class="form-control" name="search_res"  style="background-color:grey;border-color:black;color:white""
             ?>    <br>
-<input type="submit" value="Search" name="btnAction" class="btn btn-dark" /> 
+<input type="submit" value="Search" name="btnAction" class="btn btn-dark" style="background-color:#f44fb1;border:black"/> 
 </form>
 <br>
-<table class="w3-table w3-bordered w3-card-4" style="width:90%">
+<table class="w3-table w3-bordered w3-card-4" style="width:90%" style="background-color:black">
   <thead>
-  <tr style="background-color:#B0B0B0">
-    <th width="90%">Name</th>
-    <th width="10%">Add</th> 
+  <tr style="background-color:grey">
+    <th width="90%" style="color:white">Name</th>
+    <th width="10%"  style="color:white">Add</th> 
   </tr>
   </thead>
   <?php 
        if(count($list_of_media)==0){
-         echo "<p>No Results Found.</p>";
+         echo "<div class='container' style='text-align: center;width: 200px;height:30px;background-color:#f44fb1;border-radius: 15px;'><p>No Results Found.</p></div>";
        }
   ?>
-
+<br><br>
   <?php foreach ($list_of_media as $media): ?>
-  <tr>
-    <td><?php echo "<h5>".$media['common_title']."</h5>"; 
+  <tr style="background-color:black">
+    <td style="color:white"><?php echo "<b style='color:#f44fb1;font-family: sans-serif;font-size:30px'>".$media['common_title']."</b>"; 
      $type = getMediaInfo_byID($media['unique_title_identifier']);
      getInfo_byType($media['unique_title_identifier'],$type);?></td>
    
     <td>
       <form action="add_rating.php" method="post">
         <input type="hidden" name="email" value="<?php echo $email ?>">
-        <input type="submit" value="Add" name="btnAction" class="btn btn-primary" />
+        <input type="submit" value="Add" name="btnAction" class="btn btn-primary" style="background-color:#f44fb1;border:black"/>
         <input type="hidden" name="title" value="<?php echo $media['common_title'] ?>" />
         <input type="hidden" name="title_id" value="<?php echo $media['unique_title_identifier'] ?>" />     
       </form>

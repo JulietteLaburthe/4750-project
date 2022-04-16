@@ -22,14 +22,23 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <title>WatchShelf</title>
-<body>
-<div class="container">
-  <h1>Welcome to WatchShelf!</h1>  
-<a href="login.php">Login</a> </br>
-<a href="signup.php">Sign Up</a>
+<body style="background-color:#3a2961 ;">
+<center>
+<br><br> 
+<div class="container" >
+
+<div class="container" style="text-align: center;">
+ <font color="white" style="font-family: sans-serif "> <h1 style="font-size:100px;font-family: sans-serif">WatchShelf</h1>  </font>
+ <br><br>
+<form action="login.php" method="POST">
+<input type="submit" value=Login style="height:50px;width:300px;color:white;background-color:#3a2961;border-color:#f44fb1;font-family: sans-serif"></input> 
+</form></br>
+<br>
+<form action="signup.php"  method="POST">
+<input type="submit"  value="Sign Up" style="height:50px;width:300px;color:white;background-color:#3a2961;border-color:#f44fb1;font-family: sans-serif"></input>
 </form> 
 
-
+</center>
 </body>
 </div>
 
