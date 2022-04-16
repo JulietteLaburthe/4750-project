@@ -6,16 +6,18 @@ error_reporting(E_ALL ^ E_WARNING);
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET'){
   $email =$_GET['email'];
+  $list_of_watched = getAllWatched($email);
   }
 // echo "email: " . $email;
 $list_of_media = getAllMedia();
-$list_of_watched = getAllWatched($email);
+
 
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     $email = $_POST['email'];
+    $list_of_watched = getAllWatched($email);
       // echo "EMAIL: ". $email;
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add to Watchlist"){ 
         $current_rating = $_POST['rating'];
@@ -53,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
       $list_of_watched = getAllWatchedbyTitle($email);
     }
+    
   
 }
 $link_address= "https://cs4750-project-db.uk.r.appspot.com/watchlist.php?email=". $email."";
@@ -101,42 +104,51 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
   <!-- include your CSS -->
   <!-- <link rel="stylesheet" href="custom.css" />  -->
        
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&family=Montserrat:wght@500&display=swap');
+</style>
 </head>
 
-<body style="background-color:#3a2961 ;">
+<body style="height:100%; background-image: url('cleanbackground.png'); 
+ background-position: center;
+  background-size: 100% 100%;">
+<center>
+
+
 <nav class="navbar navbar-expand-lg " style="background-color: #3a2961">
 <div class="navbar-nav">
-<a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/add_media.php" > <img src="https://cdn-icons-png.flaticon.com/128/1946/1946436.png" style="height: 25px;"/></a>
+<a style="padding: 10px;" href="<?php echo $link_address2;?>" > <img src="https://cdn-icons-png.flaticon.com/128/1946/1946436.png" style="height: 25px;"/></a>
 </div>
-  <h2 class="navbar-brand" style="padding: 10px;color:white;font-family: sans-serif" >WatchShelf</h2>
+  <h2 class="navbar-brand" style="padding: 10px;color:white;font-family: 'DM Sans', sans-serif;" >WatchShelf</h2>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
  
-      <a class="nav-item nav-link active" href="<?php echo $link_address2;?>" style="padding: 10px;color:white;font-family: sans-serif" >Add Media</a>
-      <a class="nav-item nav-link"  href="<?php echo $link_address;?>"style="padding: 10px;color:#f44fb1;font-family: sans-serif" >Watchlist<a/>
-      <a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/" > <img src="https://cdn-icons-png.flaticon.com/128/1828/1828479.png" style="height: 25px;"/></a>
+      <a class="nav-item nav-link " href="<?php echo $link_address2;?>" style="padding: 10px;color:white;font-family: 'DM Sans', sans-serif;" >Add Media</a>
+      <a class="nav-item nav-link active"  href="<?php echo $link_address;?>"style="padding: 10px;color:#f44fb1;font-family: 'DM Sans', sans-serif;" >Watchlist<a/>
+      <a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/home_page.php" > <img src="https://cdn-icons-png.flaticon.com/128/1828/1828479.png" style="height: 25px;"/></a>
 
 </nav>
-<div class="container">
-<h1 style="font-size:50px;font-family: sans-serif;color:white">My Watchlist</h1>
-<h3 style="font-family: sans-serif;color:#f44fb1;">List of Movies</h3>
+<div class="container" style="text-align: left; padding-bottom:7%">
+ <font color="white"> <h1 style="text-align: center;font-family: 'DM Sans', sans-serif;">My Watchlist</h1>  </font>
+<h3 style="font-family: 'DM Sans', sans-serif;color:white;">List of Movies</h3>
 <div>
   <form method="post" action="watchlist.php" style ="display: inline;">
       <!-- More code here -->
       <input type="hidden" name="email" value="<?php echo $email ?>">
-      <input type="submit" value="Sort by Title" name="btnAction" class="btn btn-success" />
+      <input type="submit" value="Sort by Title" name="btnAction" class="btn btn-success" style="background-color:#f44fb1;border:black"/>
   </form>
   <form method="post" action="watchlist.php" id="form2" style ="display: inline;">
   <input type="hidden" name="email" value="<?php echo $email ?>">
       <!-- More code here -->
-      <input type="submit" value="Sort by Rating" name="btnAction" class="btn btn-primary" />
+      <input type="submit" value="Sort by Rating" name="btnAction" class="btn btn-primary"style="background-color:#5515d4;border:black" />
   </form>
 </div>
 <br>
-<table class="w3-table w3-bordered w3-card-4" style="width:90%;background-color:black">
+<table class="w3-table w3-bordered w3-card-4" style="width:90%;background-color:black align-items:center;">
   <thead>
-  <tr style="background-color:grey">
+  <tr style="background-color: #3a2961;">
   <th width="35%"style="color:white">Title</th> 
     <th width="10%"style="color:white">Rating</th>
     <th width="35%"style="color:white">Review</th> 
@@ -145,13 +157,13 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
   </tr>
   </thead>
   <?php foreach ($list_of_watched as $watched): ?>
-  <tr>
+  <tr style="background-color:#1a0641;">
     <?php 
         $media_watched = getMedia_byID($watched['unique_title_identifier']);
     ?>
-    <td style="color:#f44fb1;font-family:sans-serif"><?php echo $media_watched['common_title']; ?></td>
-    <td style="color:#f44fb1;font-family:sans-serif"><?php echo $watched['rating']; ?></td>
-    <td style="color:#f44fb1;font-family:sans-serif"><?php echo $watched['user_comment']; ?></td>
+    <td style="color:#f44fb1;font-family: 'DM Sans', sans-serif;"><?php echo $media_watched['common_title']; ?></td>
+    <td style="color:white;font-family: 'DM Sans', sans-serif;"><?php echo $watched['rating']; ?></td>
+    <td style="color:white;font-family: 'DM Sans', sans-serif;"><?php echo $watched['user_comment']; ?></td>
     <td>
       <form action="update_rating.php" method="post">
       <input type="hidden" name="email" value="<?php echo $email ?>">
@@ -165,7 +177,7 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
     <input type="hidden" name="email" value="<?php echo $email ?>">
   <input type="hidden" name="current_title" value="<?php echo $current_title ?>">
   <input type="hidden" name="current_title_id" value="<?php echo $current_title_id ?>">
-        <input type="submit" value="Delete" name="btnAction" class="btn btn-danger" />
+        <input type="submit" value="Delete" name="btnAction" class="btn btn-danger"style="background-color:#5515d4;border:black" />
 
         <input type="hidden" name="watch_to_delete" value="<?php echo $watched['unique_title_identifier'] ?>" />      
       </form>
@@ -176,10 +188,10 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
   
   </table>
   <br>
-  <h3 style="font-family: sans-serif;color:#f44fb1;">Rating Distribution</h3>
+  <h3 style="font-family: 'DM Sans', sans-serif;color:white;">Rating Distribution</h3>
   <table class="w3-table w3-bordered w3-card-4" style="width:90%;background-color:black">
 	<thead>
-	<tr style="background-color:grey">
+	<tr style="background-color: #3a2961;">
 	  <th width="10%"style="color:white">Rating</th>
 	  <th width="10%"style="color:white">Count</th>
 	</tr>
@@ -187,10 +199,10 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
 	<?php
   $results = getRatingDistribution($email);
     foreach ($results as $result): ?>
-	<tr>
+	<tr style="background-color:#1a0641;">
 	 
-	  <td style="color:#f44fb1;font-family:sans-serif"><?php echo $result["rating"]; ?></td>
-	  <td style="color:#f44fb1;font-family:sans-serif"><?php echo $result["rating_count"] ; ?></td>
+	  <td style="color:white;font-family: 'DM Sans', sans-serif;"><?php echo $result["rating"]; ?></td>
+	  <td style="color:white;font-family: 'DM Sans', sans-serif;"><?php echo $result["rating_count"] ; ?></td>
 	
   
 	</tr>
