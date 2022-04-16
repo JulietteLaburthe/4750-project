@@ -18,8 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   }
   $email =$_POST['email'];
 }
-$link_address= "https://cs4750-project-db.uk.r.appspot.com/watchlist.php?email=". $email."";
-$link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=". $email."";
+$link_address= "https://localhost/php-gcp/watchlist.php?email=". $email."";
+$link_address2= "https://localhost/php-gcp/add_media.php?email=". $email."";
 ?>
 
 
@@ -66,10 +66,11 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
        
 </head>
 
+
 <body style="background-color:#3a2961 ;">
 <nav class="navbar navbar-expand-lg " style="background-color: #3a2961">
 <div class="navbar-nav">
-<a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/" > <img src="https://cdn-icons-png.flaticon.com/128/1946/1946436.png" style="height: 25px;"/></a>
+<a style="padding: 10px;" href="https://localhost/php-gcp/add_media.php" > <img src="https://cdn-icons-png.flaticon.com/128/1946/1946436.png" style="height: 25px;"/></a>
 </div>
   <h2 class="navbar-brand" style="padding: 10px;color:white;font-family: sans-serif" >WatchShelf</h2>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">

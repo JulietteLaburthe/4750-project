@@ -28,8 +28,9 @@ function login($email, $password)
             //setcookie("username",$results[1], time() + 3600);
             //setcookie("password", $results[2], time() + 3600);
             // $_SESSION['email'] = $email;
-            // $_SESSION['username'] = $query[1];
-			echo '<div class="container" style="text-align: center;width: 800px;height:30px;background-color:black;border-radius: 15px;"><a style="color:white" href="https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=' . $email . '">Login Successful! Click here to start Adding Media to Your Watchlist!</a></div>';
+			// $_SESSION['username'] = $query[1];
+			
+			echo '<div class="container" style="text-align: center;width: 800px;height:30px;background-color:black;border-radius: 15px;"><a style="color:white" href="https://localhost/php-gcp/add_media?email=' . $email . '">Login Successful! Click here to start Adding Media to Your Watchlist!</a></div>';
 
 
 			

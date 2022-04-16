@@ -25,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 // echo "email: ". $email;
 }
-$link_address= "https://cs4750-project-db.uk.r.appspot.com/watchlist.php?email=". $email."";
-$link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=". $email."";
+$link_address= "https://localhost/php-gcp/watchlist.php?email=". $email."";
+$link_address2= "https://localhost/php-gcp/add_media.php?email=". $email."";
 ?>
 
 <!-- 1. create HTML5 doctype -->

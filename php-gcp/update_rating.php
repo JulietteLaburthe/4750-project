@@ -35,8 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 $list_of_media = getAllMedia();
 $list_of_watched = getAllWatched($email);
 $watch_to_update_id = $watch_to_update['unique_title_identifier'];
-$link_address= "https://cs4750-project-db.uk.r.appspot.com/watchlist.php?email=". $email."";
-$link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=". $email."";
+$link_address= "https://localhost/php-gcp/watchlist.php?email=". $email."";
+$link_address2= "https://localhost/php-gcp/add_media.php?email=". $email."";
 ?>
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
@@ -83,7 +83,7 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
 <body style="background-color:#3a2961 ;">
 <nav class="navbar navbar-expand-lg " style="background-color: #3a2961">
 <div class="navbar-nav">
-<a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/add_media.php" > <img src="https://cdn-icons-png.flaticon.com/128/1946/1946436.png" style="height: 25px;"/></a>
+<a style="padding: 10px;" href="https://localhost/php-gcp/add_media" > <img src="https://cdn-icons-png.flaticon.com/128/1946/1946436.png" style="height: 25px;"/></a>
 </div>
   <h2 class="navbar-brand" style="padding: 10px;color:white;font-family: sans-serif" >WatchShelf</h2>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,7 +92,7 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
  
       <a class="nav-item nav-link active" href="<?php echo $link_address2;?>" style="padding: 10px;color:#f44fb1;font-family: sans-serif" >Add Media</a>
       <a class="nav-item nav-link"  href="<?php echo $link_address;?>"style="padding: 10px;color:white;font-family: sans-serif" >Watchlist<a/>
-      <a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/" > <img src="https://cdn-icons-png.flaticon.com/128/1828/1828479.png" style="height: 25px;"/></a>
+      <a style="padding: 10px;" href="https://localhost/php-gcp/add_media" > <img src="https://cdn-icons-png.flaticon.com/128/1828/1828479.png" style="height: 25px;"/></a>
 
 </nav>
 <div class="container">
