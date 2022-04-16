@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 }
 
 ?>
+<html style="height:100%">
 <head>
   <!-- if you choose to use CDN for CSS bootstrap -->  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -29,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 <body style="height: 100%; background-image: url('background.png'); 
  background-position: center;
-  background-repeat: no-repeat;
+ background-repeat: no-repeat;
   background-size: 100% 100%;">
 <center>
 <br><br> 
@@ -47,14 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <div class="row mb-3 mx-3">
   <p style="font-size:20;font-family: 'Montserrat', sans-serif;color:white;text-align:left"> Email:</p>
     <br>
-    <input type="text" class="form-control" name="email" style='border-color:black;color:white'  
+    <input type="text" class="form-control" name="email" style='border-color:black;'  
             ?>        
   </div>  
   </br>
   <div class="row mb-3 mx-3">
   <p style="font-size:20;font-family: 'Montserrat', sans-serif;color:white;text-align:left"> Password:</p>
     <br>
-    <input type="text" class="form-control" name="password"  style='border-color:black;color:white'
+    <input type="text" class="form-control" name="password"  style='border-color:black;'
             ?>        
   </div>  
   <br>

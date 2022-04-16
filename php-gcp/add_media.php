@@ -31,7 +31,7 @@ $link_address2= "https://localhost/php-gcp/add_media.php?email=". $email."";
 
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
-<html>
+<html style="height:100%">
 <head>
   <meta charset="UTF-8">  
   
@@ -71,57 +71,68 @@ $link_address2= "https://localhost/php-gcp/add_media.php?email=". $email."";
   <!-- include your CSS -->
   <!-- <link rel="stylesheet" href="custom.css" />  -->
        
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&family=Montserrat:wght@500&display=swap');
+</style>
 </head>
 
-<body style="background-color:#3a2961 ;">
+<body style="height:100%; background-image: url('cleanbackground.png'); 
+ background-position: center;
+  background-size: 100% 100%;">
+<center>
+
+
 <nav class="navbar navbar-expand-lg " style="background-color: #3a2961">
 <div class="navbar-nav">
 <a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/add_media.php" > <img src="https://cdn-icons-png.flaticon.com/128/1946/1946436.png" style="height: 25px;"/></a>
 </div>
-  <h2 class="navbar-brand" style="padding: 10px;color:white;font-family: sans-serif" >WatchShelf</h2>
+  <h2 class="navbar-brand" style="padding: 10px;color:white;font-family: 'DM Sans', sans-serif;" >WatchShelf</h2>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
  
-      <a class="nav-item nav-link active" href="<?php echo $link_address2;?>" style="padding: 10px;color:#f44fb1;font-family: sans-serif" >Add Media</a>
-      <a class="nav-item nav-link"  href="<?php echo $link_address;?>"style="padding: 10px;color:white;font-family: sans-serif" >Watchlist<a/>
+      <a class="nav-item nav-link active" href="<?php echo $link_address2;?>" style="padding: 10px;color:#f44fb1;font-family: 'DM Sans', sans-serif;" >Add Media</a>
+      <a class="nav-item nav-link"  href="<?php echo $link_address;?>"style="padding: 10px;color:white;font-family: 'DM Sans', sans-serif;" >Watchlist<a/>
       <a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/" > <img src="https://cdn-icons-png.flaticon.com/128/1828/1828479.png" style="height: 25px;"/></a>
 
 </nav>
-<div class="container">
-
-<font color="white" ><h1 style="font-size:50px;font-family: sans-serif">Add Media</h1></font>
+<div class="container" style="text-align: left;">
+ <font color="white"> <h1 style="text-align: center;font-family: 'DM Sans', sans-serif;">Add Media</h1>  </font>
 <h3 style="font-family: sans-serif;color:#f44fb1;">Search By: </h3>
 <form action="add_media.php" method="post">
 
 <input type="hidden" name="email" value="<?php echo $email ?>">
-<select name="selectButton" style="background-color:grey;border:black">
+<select name="selectButton" style="border:black">
 <option value="Title" >Title</option>
 <option value="Actor">Actor</option>
 <option value="Director">Director </option>
 </select>
 <br><br>
-<input type="textbox" class="form-control" name="search_res"  style="background-color:grey;border-color:black;color:white""
+<input type="textbox" class="form-control" name="search_res"  style="border-color:black;"
             ?>    <br>
 <input type="submit" value="Search" name="btnAction" class="btn btn-dark" style="background-color:#f44fb1;border:black"/> 
 </form>
 <br>
 <table class="w3-table w3-bordered w3-card-4" style="width:90%" style="background-color:black">
-  <thead>
-  <tr style="background-color:grey">
-    <th width="90%" style="color:white">Name</th>
-    <th width="10%"  style="color:white">Add</th> 
-  </tr>
-  </thead>
+  
+  
   <?php 
        if(count($list_of_media)==0){
-         echo "<div class='container' style='text-align: center;width: 200px;height:30px;background-color:#f44fb1;border-radius: 15px;'><p>No Results Found.</p></div>";
+         echo "<div class='container' style='text-align: center; color:white;width: 200px;height:30px;background-color:#f44fb1;border-radius: 7px;'><p>No Results Found.</p></div>";
+       }
+       else{
+         echo '<thead>
+         <tr style="background-color: #3a2961">
+           <th width="90%" style="color:white">Name</th>
+           <th width="10%"  style="color:white">Add</th> 
+         </tr></thead>';
        }
   ?>
 <br><br>
   <?php foreach ($list_of_media as $media): ?>
-  <tr style="background-color:black">
-    <td style="color:white"><?php echo "<b style='color:#f44fb1;font-family: sans-serif;font-size:30px'>".$media['common_title']."</b>"; 
+  <tr style="background-color:#1a0641;">
+    <td style="color:white"><?php echo "<b style='font-family: sans-serif;font-size:30px'>".$media['common_title']."</b>"; 
      $type = getMediaInfo_byID($media['unique_title_identifier']);
      getInfo_byType($media['unique_title_identifier'],$type);?></td>
    

@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
   
 }
-$link_address= "https://localhost/php-gcp/watchlist.php?email=". $email."";
+$link_address= "https://localhost/4750-project/php-gcp/watchlist.php?email=". $email."";
 $link_address2= "https://localhost/php-gcp/add_media.php?email=". $email."";
 
 ?>
