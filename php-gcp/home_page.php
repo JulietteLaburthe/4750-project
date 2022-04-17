@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE htmlv>
+<html style="height: 100%">
 <head>
 <meta charset="UTF-8"
 <!-- 2. include meta tag to ensure proper rendering and touch zooming -->
@@ -21,41 +21,31 @@
   <!-- you may also use W3's formats -->
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   
-
-
 <title>WatchShelf</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&family=Montserrat:wght@500&display=swap');
 </style>
 </head>
-
-<body style="height: 100%; background-image: url('background.png'); 
+<body style="height: 100%; background-image: url('https://i.imgur.com/yzNxGzq.png?2'); 
  background-position: center;
-  background-repeat: no-repeat;
   background-size: 100% 100%;">
 <center>
 <br><br> 
 <div class="container" >
-
 <div class="container" style="text-align: center; padding-bottom:10%">
  <font color="white"> <h1 style="font-size:80px; font-family: 'DM Sans', sans-serif;">WatchShelf</h1>  </font>
  <p style="color:white;  font-size:20px; font-family: 'Montserrat', sans-serif;">remember what moved you.</p>
- <img src="movie_image.png" alt="movie icon on home page" style="width: 400px; height:auto;">
+ <img src="https://i.imgur.com/EjXVuBg.png" alt="movie icon on home page" style="width: 30%; height:auto;">
  <br></br>
 <form action="login.php" method="POST">
 <input type="submit" value=Login style="border-radius: 10px; font-size:20px; height:50px;width:250px;color:white; background-color:#FF4BB0; border-color:#f44fb1; font-family: 'Montserrat', sans-serif;"></input> 
 </form>
 <br></br>
 <form action="signup.php"  method="POST">
-<input type="submit"  value="Sign Up" style="border-radius: 10px; font-size:20px; 10px;height:50px;width:250px;color:white; background-color:#261b40; border-color:#f44fb1; font-family: 'Montserrat', sans-serif;"></input>
+<input type="submit"  value="Sign Up" style="border-radius: 10px; font-size:20px; height:50px;width:250px;color:white; background-color:#261b40; border-color:#f44fb1; font-family: 'Montserrat', sans-serif;"></input>
 </form> 
-
 </center>
 </div>
 </body>
-
-
-
-
 </html>

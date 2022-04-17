@@ -28,9 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 </style>
 </head>
 
-<body style="height: 100%; background-image: url('background.png'); 
+<body style="height: 100%; background-image: url('https://i.imgur.com/yzNxGzq.png?2'); 
  background-position: center;
- background-repeat: no-repeat;
+
   background-size: 100% 100%;">
 <center>
 <br><br> 

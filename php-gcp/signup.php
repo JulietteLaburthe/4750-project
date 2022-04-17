@@ -27,9 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 </style>
 </head>
 
-<body style="height: 100%; background-image: url('background.png'); 
+<body style="height: 100%; background-image: url('https://i.imgur.com/yzNxGzq.png?2'); 
  background-position: center;
-  background-repeat: no-repeat;
   background-size: 100% 100%;">
 <center>
 <br><br> 
@@ -46,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 </div>  
   <div class="row mb-3 mx-3">
   <p style="font-size:20;font-family: 'Montserrat', sans-serif;color:white;text-align:left"> Email:</p>
-    <input type="text" class="form-control" name="email" style='order-color:black;'  
+    <input type="text" class="form-control" name="email" style='border-color:black;'  
       required      ?>        
   </div> 
   </br>

@@ -65,7 +65,7 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
 
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
-<html>
+<html style="height: 100%;">
 <head>
   <meta charset="UTF-8">  
   
@@ -110,9 +110,9 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
 </style>
 </head>
 
-<body style="height:100%; background-image: url('cleanbackground.png'); 
+<body style="height:100%; background-image: url('https://i.imgur.com/nblmI81.png'); 
  background-position: center;
-  background-size: 100% 100%;">
+ background-size: 100% 100%;">
 <center>
 
 
@@ -127,7 +127,7 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
  
       <a class="nav-item nav-link " href="<?php echo $link_address2;?>" style="padding: 10px;color:white;font-family: 'DM Sans', sans-serif;" >Add Media</a>
       <a class="nav-item nav-link active"  href="<?php echo $link_address;?>"style="padding: 10px;color:#f44fb1;font-family: 'DM Sans', sans-serif;" >Watchlist<a/>
-      <a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/home_page.php" > <img src="https://cdn-icons-png.flaticon.com/128/1828/1828479.png" style="height: 25px;"/></a>
+      <a style="padding: 10px;" href="https://cs4750-project-db.uk.r.appspot.com/" > <img src="https://cdn-icons-png.flaticon.com/128/1828/1828479.png" style="height: 25px;"/></a>
 
 </nav>
 <div class="container" style="text-align: left; padding-bottom:7%">
@@ -146,7 +146,7 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
   </form>
 </div>
 <br>
-<table class="w3-table w3-bordered w3-card-4" style="width:90%;background-color:black align-items:center;">
+<table class="w3-table w3-bordered w3-card-4" style="width:90%;background-color:black ;align-items:center;">
   <thead>
   <tr style="background-color: #3a2961;">
   <th width="35%"style="color:white">Title</th> 

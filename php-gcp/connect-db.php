@@ -3,21 +3,21 @@
 
 ////////////////////////////////////////////
 /** S22, PHP (on Google Standard App Engine) connect to MySQL instance (GCP) **/
-// $username = 'access_db';                      // or your username
-// $password = '@DbPassword543';      // or your password
-// $host = 'cs4750-project-db:us-east4:media-database';       // projectID = cs4750, SQL instance ID = db-demo
-// $dbname = 'media';                   // database name = guestbook
-// $dsn = "mysql:unix_socket=/cloudsql/$host;dbname=$dbname";
+$username = 'access_db';                      // or your username
+$password = '@DbPassword543';      // or your password
+$host = 'cs4750-project-db:us-east4:media-database';       // projectID = cs4750, SQL instance ID = db-demo
+$dbname = 'media';                   // database name = guestbook
+$dsn = "mysql:unix_socket=/cloudsql/$host;dbname=$dbname";
 
 // to get instance connection name, go to GCP SQL overview page
 ////////////////////////////////////////////
 
 /** S22, PHP (on local XAMPP or CS server) connect to MySQL instance (GCP) **/
-$username = 'access_db';                      // or your username
-$password = '@DbPassword543';        // or your password
-$host = 'cs4750-project-db:us-east4:media-database';       // projectID = cs4750, SQL instance ID = db-demo
-$dbname = 'media';                   // database name = guestbook
-$dsn = "mysql:host=34.86.135.17;dbname=$dbname";       // connect PHP (XAMPP) to DB (GCP)
+// $username = 'access_db';                      // or your username
+// $password = '@DbPassword543';        // or your password
+// $host = 'cs4750-project-db:us-east4:media-database';       // projectID = cs4750, SQL instance ID = db-demo
+// $dbname = 'media';                   // database name = guestbook
+// $dsn = "mysql:host=34.86.135.17;dbname=$dbname";       // connect PHP (XAMPP) to DB (GCP)
 
 // to get public IP addres of the SQL instance, go to GCP SQL overview page
 
