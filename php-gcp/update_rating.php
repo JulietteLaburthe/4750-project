@@ -112,11 +112,11 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
             $media_to_update = getMedia_byID($watch_to_update['unique_title_identifier']);
             $watch_to_update = getWatched_byEmailID($email,$watch_to_update['unique_title_identifier']);
       ?>
-  <h1 style="font-size:50px;font-family: sans-serif;color:white"><?php echo $media_to_update["common_title"]?></h1>  
+  <h1 style="font-size:50px;font-family: 'DM Sans', sans-serif;color:white"><?php echo $media_to_update["common_title"]?></h1>  
 
   <form name="mainForm" action="watchlist.php" method="post">   
   <div class="row mb-3 mx-3">
-  <h3 style="color:#f44fb1;font-family:sans-serif"><b> Rating: </b></h3>
+  <h3 style="color:#f44fb1;font-family: 'DM Sans', sans-serif;"><b> Rating: </b></h3>
   </div>
   <div class="mb-3 form-check form-check-inline">
         <label for="0" class="form-check-label" ><p style="color:#f44fb1;font-family:sans-serif"> 0</p></label>
@@ -167,8 +167,8 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
            
       ?>
   <div class="row mb-3 mx-3">
-  <h3 style="color:#f44fb1;font-family:sans-serif"><b> Review: </b></h3>
-    <input type="text" class="form-control" name="review"  value="<?php if ($watch_to_update!=null)  echo $watch_to_update['user_comment'] ?>" style="background-color:grey;border-color:black;color:white"/> 
+  <h3 style="color:#f44fb1;font-family: 'DM Sans', sans-serif;"><b> Review: </b></h3>
+    <input type="text" class="form-control" name="review"  value="<?php if ($watch_to_update!=null)  echo $watch_to_update['user_comment'] ?>" style=" font-family: 'DM Sans', sans-serif; background-color:grey;border-color:black;color:white"/> 
   </div>
 
 <div class="row mb-3 mx-3">

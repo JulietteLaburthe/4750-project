@@ -91,14 +91,14 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
 
 </nav>
 <div class="container" style="text-align: left; padding-bottom:7%">
-  <h1 style="font-size:50px;font-family: sans-serif;color:white"><?php echo $current_title?></h1>  
+  <h1 style="font-size:50px;font-family: 'DM Sans', sans-serif;color:white"><?php echo $current_title?></h1>  
 
   <form name="mainForm" action="watchlist.php" method="post">   
   <input type="hidden" name="email" value="<?php echo $email ?>">
   <input type="hidden" name="current_title" value="<?php echo $current_title ?>">
   <input type="hidden" name="current_title_id" value="<?php echo $current_title_id ?>">
   <div class="row mb-3 mx-3">
-   <h3 style="color:#f44fb1;font-family:sans-serif"><b> Rating: </b></h3>
+   <h3 style="color:#f44fb1;font-family: 'DM Sans', sans-serif;"><b> Rating: </b></h3>
   </div>
   <div class="mb-3 form-check form-check-inline">
         <label for="0" class="form-check-label" >  <p style="color:#f44fb1;font-family:sans-serif"> 0</p></label>
@@ -145,13 +145,13 @@ $link_address2= "https://cs4750-project-db.uk.r.appspot.com/add_media.php?email=
         <input type="radio"class="form-check-input"  value="10" id="10" name="rating" required/>
   </div>
   <div class="row mb-3 mx-3">
-  <h3 style="color:#f44fb1;font-family:sans-serif"><b> Review: </b></h3>
+  <h3 style="color:#f44fb1;font-family: 'DM Sans', sans-serif;"><b> Review: </b></h3>
   <br>
     <input type="text" class="form-control" name="review"  style="background-color:grey;border-color:black;color:white""/> 
 </div>
 <div class="row mb-3 mx-3">
  
-  <input type="submit" value="Add to Watchlist" name="btnAction" class="btn btn-dark" style="background-color:#f44fb1;border-color:#3a2961"
+  <input type="submit" value="Add to Watchlist" name="btnAction" class="btn btn-dark" style="font-family: 'DM Sans', sans-serif; background-color:#f44fb1;border-color:#3a2961"
         title="insert a watch" />
         </div>
 </form> 
